@@ -1,0 +1,58 @@
+EasyTableView Notes - November 3, 2010
+
+This project demonstrates the use of the EasyTableView object. The demo is intended to be run on an iPad only, but there is no reason why EasyTableView could not be used on an iPhone.
+
+To use EasyTableView in your own project, all you need to include are the following files:
+
+EasyTableView.h
+EasyTableView.m
+NSIndexPath+Same.h
+NSIndexPath+Same.m
+
+DESCRIPTION
+
+EasyTableView was created to address two concerns. The first is the ability to have a table view, horizontal or vertical, that only partially fills the screen. Normally one would use UITableViewController but as per Apple documentation, that requires table views that fill the whole screen. EasyTableView addresses this problem by acting as the controller for the embedded table view, and exposes a subset of table view functionality with it's own delegate methods.
+ 
+The second concern addressed by EasyTableView is horizontal table views. Table views were initially designed to be vertical only. EasyTableView solves this problem by rotating the table view, and then reverse rotating table view cells. One could also provide horizontally scrolling table views by subclassing UIScrollView, but I wanted to create one simple, common interface for creating both vertical EasyTableViews and horizontal EasyTableViews.
+ 
+So now you can create simple partial screen table views, either vertically or horizontally, with the same interface!
+
+KNOWN LIMITATIONS
+ 
+1. This implementation currently only supports one table section. The view relies on three reserved view tags, 800 - 802.
+
+2. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
+
+USAGE
+
+To understand how to use EasyTableView, study the code in EasyTableViewController.m. To create a new EasyTableView object, look at the methods (void)setupHorizontalView and (void)setupVerticalView. As seen in the source code, you initialize a vertical scrolling table view with:
+
+- (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numCells ofHeight:(CGFloat)cellHeight;
+
+To initialize a horizontal scrolling table view use:
+
+- (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCells ofWidth:(CGFloat)cellWidth;
+
+There are two delegates for the EasyTableViewDelegate protocol that must be implemented. They are:
+
+- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
+- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndex:(NSUInteger)index;
+
+In the first delegate method you are required to return a UIView object (or subclass) which fits within the bounds of the "rect" parameter. The simplest thing to do is to create a UIView object with the frame set to "rect". In the demo you will see that a UIView is created which is inset, simply for aesthetics. This delegate method is intended only to create the custom views for each of your cells, NOT the data. It is called N times, where N is the number of cells specified when an EasyTableView object is first initialized. 
+
+The second delegate method is where you set the data for each of your cells, given a specified "index". The "view" parameter is the same UIView object (or subclass) that was returned from your implementation of the first delegate method.
+
+That's all there is to it. It is very easy to use. There are additional methods defined in EasyTableView.h that you might also find useful for your own application:
+
+- (void)selectCellAtIndex:(NSUInteger)index animated:(BOOL)animated;
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
+- (UIView *)viewAtIndex:(NSUInteger)index;
+- (CGPoint)offsetForView:(UIView *)cell;
+
+And yes, that is a picture of my tent!
+
+
+EasyTableView is released under the New BSD License.
+
+Copyright (c) 2010, Yodel Code LLC
+All rights reserved.
