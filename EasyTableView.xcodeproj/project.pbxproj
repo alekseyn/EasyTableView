@@ -14,7 +14,6 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* EasyTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* EasyTableViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		5BAB2C5111BA3A1A00C5272F /* NSIndexPath+Same.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAB2C4E11BA3A1A00C5272F /* NSIndexPath+Same.m */; };
 		5BAB2C5411BA3B1B00C5272F /* MedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */; };
 		5BAB2C5511BA3B1B00C5272F /* SmallAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */; };
 		5BAB2C6211BA3B2500C5272F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5711BA3B2500C5272F /* background.png */; };
@@ -36,8 +35,6 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EasyTableView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView_Prefix.pch; sourceTree = "<group>"; };
 		5B2CD3CB11BAA38F0072948D /* AppIcon.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppIcon.pxm; sourceTree = "<group>"; };
-		5BAB2C4D11BA3A1A00C5272F /* NSIndexPath+Same.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+Same.h"; sourceTree = "<group>"; };
-		5BAB2C4E11BA3A1A00C5272F /* NSIndexPath+Same.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+Same.m"; sourceTree = "<group>"; };
 		5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MedAppIcon.png; sourceTree = "<group>"; };
 		5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SmallAppIcon.png; sourceTree = "<group>"; };
 		5BAB2C5711BA3B2500C5272F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -73,8 +70,6 @@
 				1D3623250D0F684500981E51 /* EasyTableAppDelegate.m */,
 				5BAB2C9C11BA411D00C5272F /* EasyTableViewController.h */,
 				5BAB2C9D11BA411D00C5272F /* EasyTableViewController.m */,
-				5BAB2C4D11BA3A1A00C5272F /* NSIndexPath+Same.h */,
-				5BAB2C4E11BA3A1A00C5272F /* NSIndexPath+Same.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -218,7 +213,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* EasyTableAppDelegate.m in Sources */,
-				5BAB2C5111BA3A1A00C5272F /* NSIndexPath+Same.m in Sources */,
 				5BAB2C9E11BA411D00C5272F /* EasyTableViewController.m in Sources */,
 				D53E2A24125FC4DC0032086B /* EasyTableView.m in Sources */,
 			);

@@ -6,8 +6,6 @@ To use EasyTableView in your own project, all you need to include are the follow
 
 EasyTableView.h
 EasyTableView.m
-NSIndexPath+Same.h
-NSIndexPath+Same.m
 
 DESCRIPTION
 

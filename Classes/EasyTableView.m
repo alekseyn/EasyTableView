@@ -8,7 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "EasyTableView.h"
-#import "NSIndexPath+Same.h"
 
 #define ANIMATION_DURATION	0.30
 
@@ -148,7 +147,7 @@
 
 
 - (void)setSelectedIndexPath:(NSIndexPath *)indexPath {
-	if (![_selectedIndexPath isSameAs:indexPath]) {
+	if (![_selectedIndexPath isEqual:indexPath]) {
 		NSIndexPath *oldIndexPath = [_selectedIndexPath copy];
 		
 		[_selectedIndexPath release];
@@ -207,7 +206,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Don't allow the currently selected cell to be selectable
-	if ([_selectedIndexPath isSameAs:indexPath]) {
+	if ([_selectedIndexPath isEqual:indexPath]) {
 		return nil;
 	}
 	return indexPath;

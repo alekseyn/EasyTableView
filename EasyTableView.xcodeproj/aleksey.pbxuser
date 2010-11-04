@@ -17,7 +17,7 @@
 		activeArchitecturePreference = armv7;
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 5B4DDC5911BA389200213FEF /* EasyTableView */;
-		activeSDKPreference = iphoneos4.2;
+		activeSDKPreference = iphonesimulator4.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* EasyTableView */;
 		addToTargets = (
 		);
@@ -72,17 +72,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 310543856;
-			PBXWorkspaceStateSaveDate = 310543856;
+			PBXPerProjectTemplateStateSaveDate = 310575287;
+			PBXWorkspaceStateSaveDate = 310575287;
 		};
 		perUserProjectItems = {
-			5B8757CE11EBE4AA0058F0CB /* PBXTextBookmark */ = 5B8757CE11EBE4AA0058F0CB /* PBXTextBookmark */;
-			5B8757CF11EBE4AA0058F0CB /* PBXTextBookmark */ = 5B8757CF11EBE4AA0058F0CB /* PBXTextBookmark */;
-			5B875A7A11EC5E220058F0CB /* PBXTextBookmark */ = 5B875A7A11EC5E220058F0CB /* PBXTextBookmark */;
-			5BAB2CA411BA41C500C5272F /* PBXTextBookmark */ = 5BAB2CA411BA41C500C5272F /* PBXTextBookmark */;
-			5BB48A70128286020080F101 /* PBXTextBookmark */ = 5BB48A70128286020080F101 /* PBXTextBookmark */;
-			5BB48A71128286020080F101 /* PBXBookmark */ = 5BB48A71128286020080F101 /* PBXBookmark */;
-			5BB48A7612828C660080F101 /* PBXTextBookmark */ = 5BB48A7612828C660080F101 /* PBXTextBookmark */;
+			5B57706C12831E7E00ECE006 /* PBXTextBookmark */ = 5B57706C12831E7E00ECE006 /* PBXTextBookmark */;
+			5B57707C12831FE900ECE006 /* PBXTextBookmark */ = 5B57707C12831FE900ECE006 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 5B4DDC6A11BA38A300213FEF /* Source Control */;
 		userBuildSettings = {
@@ -134,49 +129,25 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
-	5B8757CE11EBE4AA0058F0CB /* PBXTextBookmark */ = {
+	5B57706C12831E7E00ECE006 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 5BAB2C4D11BA3A1A00C5272F /* NSIndexPath+Same.h */;
-		name = "NSIndexPath+Same.h: 6";
+		fRef = D53E2A23125FC4DC0032086B /* EasyTableView.m */;
+		name = "EasyTableView.m: 11";
 		rLen = 0;
-		rLoc = 143;
+		rLoc = 207;
 		rType = 0;
-		vrLen = 265;
+		vrLen = 2173;
 		vrLoc = 0;
 	};
-	5B8757CF11EBE4AA0058F0CB /* PBXTextBookmark */ = {
+	5B57707C12831FE900ECE006 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 5BAB2C4E11BA3A1A00C5272F /* NSIndexPath+Same.m */;
-		name = "NSIndexPath+Same.m: 2";
+		fRef = D53E2A23125FC4DC0032086B /* EasyTableView.m */;
+		name = "EasyTableView.m: 19";
 		rLen = 0;
-		rLoc = 19;
+		rLoc = 502;
 		rType = 0;
-		vrLen = 392;
+		vrLen = 2174;
 		vrLoc = 0;
-	};
-	5B875A7A11EC5E220058F0CB /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 5BAB2C9C11BA411D00C5272F /* EasyTableViewController.h */;
-		name = "EasyTableViewController.h: 18";
-		rLen = 0;
-		rLoc = 440;
-		rType = 0;
-		vrLen = 568;
-		vrLoc = 0;
-	};
-	5BAB2C4D11BA3A1A00C5272F /* NSIndexPath+Same.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {980, 908}}";
-			sepNavSelRange = "{143, 0}";
-			sepNavVisRange = "{0, 265}";
-		};
-	};
-	5BAB2C4E11BA3A1A00C5272F /* NSIndexPath+Same.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {980, 908}}";
-			sepNavSelRange = "{19, 0}";
-			sepNavVisRange = "{0, 392}";
-		};
 	};
 	5BAB2C9C11BA411D00C5272F /* EasyTableViewController.h */ = {
 		uiCtxt = {
@@ -193,40 +164,6 @@
 			sepNavWindowFrame = "{{15, 27}, {1067, 1146}}";
 		};
 	};
-	5BAB2CA411BA41C500C5272F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 1D3623240D0F684500981E51 /* EasyTableAppDelegate.h */;
-		name = "EasyTableAppDelegate.h: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 490;
-		vrLoc = 0;
-	};
-	5BB48A70128286020080F101 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = D53E2A23125FC4DC0032086B /* EasyTableView.m */;
-		name = "EasyTableView.m: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1273;
-		vrLoc = 0;
-	};
-	5BB48A71128286020080F101 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = D53E2A22125FC4DC0032086B /* EasyTableView.h */;
-	};
-	5BB48A7612828C660080F101 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = D53E2A22125FC4DC0032086B /* EasyTableView.h */;
-		name = "EasyTableView.h: 12";
-		rLen = 0;
-		rLoc = 343;
-		rType = 0;
-		vrLen = 2836;
-		vrLoc = 0;
-	};
 	D53E2A22125FC4DC0032086B /* EasyTableView.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1097, 1118}}";
@@ -236,9 +173,9 @@
 	};
 	D53E2A23125FC4DC0032086B /* EasyTableView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {980, 4251}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 1273}";
+			sepNavIntBoundsRect = "{{0, 0}, {1131, 4199}}";
+			sepNavSelRange = "{6129, 0}";
+			sepNavVisRange = "{5364, 1415}";
 		};
 	};
 }
