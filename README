@@ -1,6 +1,6 @@
-EasyTableView Notes - November 3, 2010
+EasyTableView Notes - Updated January 31, 2012
 
-This project demonstrates the use of the EasyTableView object. The demo is intended to be run on an iPad only, but there is no reason why EasyTableView could not be used on an iPhone.
+This project demonstrates the use of the EasyTableView class. The demo is intended to be run on an iPad only, but there is no reason why EasyTableView could not be used on an iPhone.
 
 To use EasyTableView in your own project, all you need to include are the following files:
 
@@ -15,11 +15,17 @@ The second concern addressed by EasyTableView is horizontal table views. Table v
  
 So now you can create simple partial screen table views, either vertically or horizontally, with the same interface!
 
+RECENT CHANGES
+
+The sample project has been updated with a comprehensive example that demonstrates the use of EasyTableView with public images loaded from the Flickr website. Tap the info button to see that example in action. If you get an error, please tap Done and try again. The use of EasyTableView with remote images is implemented in FlipsideViewController.
+
 KNOWN LIMITATIONS
  
 1. This implementation currently only supports one table section. The view relies on three reserved view tags, 800 - 802.
 
 2. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
+
+3. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. If you get an error, simply tap Done and try again.
 
 USAGE
 
@@ -52,5 +58,5 @@ And yes, that is a picture of my tent!
 
 EasyTableView is released under the New BSD License.
 
-Copyright (c) 2010, Yodel Code LLC
+Copyright (c) 2010-2012, Yodel Code LLC
 All rights reserved.

@@ -64,7 +64,8 @@
 
 - (void)setupHorizontalView {
 	CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
-	self.horizontalView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:NUM_OF_CELLS ofWidth:VERTICAL_TABLEVIEW_WIDTH];
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:NUM_OF_CELLS ofWidth:VERTICAL_TABLEVIEW_WIDTH];
+	self.horizontalView = view;
 	
 	horizontalView.delegate						= self;
 	horizontalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
@@ -74,13 +75,14 @@
 	horizontalView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 	
 	[self.view addSubview:horizontalView];
-	[horizontalView release];
+	[view release];
 }
 
 
 - (void)setupVerticalView {
 	CGRect frameRect	= CGRectMake(PORTRAIT_WIDTH - VERTICAL_TABLEVIEW_WIDTH, 0, VERTICAL_TABLEVIEW_WIDTH, LANDSCAPE_HEIGHT);
-	self.verticalView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:NUM_OF_CELLS ofHeight:HORIZONTAL_TABLEVIEW_HEIGHT];
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:NUM_OF_CELLS ofHeight:HORIZONTAL_TABLEVIEW_HEIGHT];
+	self.verticalView	= view;
 	
 	verticalView.delegate					= self;
 	verticalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
@@ -93,7 +95,7 @@
 	verticalView.tableView.contentInset		= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
 	
 	[self.view addSubview:verticalView];
-	[verticalView release];
+	[view release];
 }
 
 
@@ -105,7 +107,6 @@
 	NSString *borderImageName	= (selected) ? @"selected_border.png" : @"image_border.png";
 	borderView.image			= [UIImage imageNamed:borderImageName];
 }
-
 
 
 #pragma mark -
@@ -159,5 +160,17 @@
 	bigLabel.text	= label.text;
 }
 
+#pragma mark - Flipside View Controller
+
+- (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
+        [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)showInfo:(id)sender {
+	FlipsideViewController *controller = [[[FlipsideViewController alloc] initWithNibName:@"FlipsideViewController" bundle:nil] autorelease];
+	controller.delegate = self;
+	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+	[self presentModalViewController:controller animated:YES];
+}
 
 @end

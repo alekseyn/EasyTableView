@@ -20,6 +20,9 @@
 		5BAB2C6C11BA3B2500C5272F /* selected_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C6111BA3B2500C5272F /* selected_border.png */; };
 		5BAB2C6E11BA3B6300C5272F /* image_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C6D11BA3B6300C5272F /* image_border.png */; };
 		5BAB2C9E11BA411D00C5272F /* EasyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAB2C9D11BA411D00C5272F /* EasyTableViewController.m */; };
+		5BE1B60414D7C61D00A1F8F5 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1B60314D7C61D00A1F8F5 /* FlipsideViewController.m */; };
+		5BE1B60614D7C62F00A1F8F5 /* FlipsideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE1B60514D7C62F00A1F8F5 /* FlipsideViewController.xib */; };
+		5BE1B60914D7C82600A1F8F5 /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1B60814D7C82600A1F8F5 /* ImageStore.m */; };
 		D53E2A24125FC4DC0032086B /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D53E2A23125FC4DC0032086B /* EasyTableView.m */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +45,11 @@
 		5BAB2C6D11BA3B6300C5272F /* image_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_border.png; sourceTree = "<group>"; };
 		5BAB2C9C11BA411D00C5272F /* EasyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableViewController.h; sourceTree = "<group>"; };
 		5BAB2C9D11BA411D00C5272F /* EasyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableViewController.m; sourceTree = "<group>"; };
+		5BE1B60214D7C61D00A1F8F5 /* FlipsideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
+		5BE1B60314D7C61D00A1F8F5 /* FlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
+		5BE1B60514D7C62F00A1F8F5 /* FlipsideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlipsideViewController.xib; sourceTree = "<group>"; };
+		5BE1B60714D7C82600A1F8F5 /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
+		5BE1B60814D7C82600A1F8F5 /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* EasyTableView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "EasyTableView-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D53E2A22125FC4DC0032086B /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
 		D53E2A23125FC4DC0032086B /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
@@ -70,6 +78,10 @@
 				1D3623250D0F684500981E51 /* EasyTableAppDelegate.m */,
 				5BAB2C9C11BA411D00C5272F /* EasyTableViewController.h */,
 				5BAB2C9D11BA411D00C5272F /* EasyTableViewController.m */,
+				5BE1B60214D7C61D00A1F8F5 /* FlipsideViewController.h */,
+				5BE1B60314D7C61D00A1F8F5 /* FlipsideViewController.m */,
+				5BE1B60714D7C82600A1F8F5 /* ImageStore.h */,
+				5BE1B60814D7C82600A1F8F5 /* ImageStore.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -109,6 +121,7 @@
 			children = (
 				5BAB2C5611BA3B2500C5272F /* Images */,
 				2899E5210DE3E06400AC0155 /* EasyTableViewController.xib */,
+				5BE1B60514D7C62F00A1F8F5 /* FlipsideViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* EasyTableView-Info.plist */,
 				5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */,
@@ -204,6 +217,7 @@
 				5BAB2C6211BA3B2500C5272F /* background.png in Resources */,
 				5BAB2C6C11BA3B2500C5272F /* selected_border.png in Resources */,
 				5BAB2C6E11BA3B6300C5272F /* image_border.png in Resources */,
+				5BE1B60614D7C62F00A1F8F5 /* FlipsideViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +232,8 @@
 				1D3623260D0F684500981E51 /* EasyTableAppDelegate.m in Sources */,
 				5BAB2C9E11BA411D00C5272F /* EasyTableViewController.m in Sources */,
 				D53E2A24125FC4DC0032086B /* EasyTableView.m in Sources */,
+				5BE1B60414D7C61D00A1F8F5 /* FlipsideViewController.m in Sources */,
+				5BE1B60914D7C82600A1F8F5 /* ImageStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
