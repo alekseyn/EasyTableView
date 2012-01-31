@@ -11,8 +11,9 @@
 
 @protocol ImageStoreDelegate <NSObject>
 - (void)imageTitles:(NSArray *)titles;
-- (void)errorMessage:(NSString *)message;
 - (void)image:(UIImage *)image loadedAtIndex:(NSUInteger)index;
+@optional
+- (void)errorMessage:(NSString *)message;
 @end
 
 @interface ImageStore : NSObject

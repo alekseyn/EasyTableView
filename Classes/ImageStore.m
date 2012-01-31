@@ -34,37 +34,45 @@
 		NSOperationQueue *queue = [[NSOperationQueue alloc] init];
 		
 		[queue addOperationWithBlock:^{
-			// Retrieve list of public images from Flickr
-			NSURL *url = [NSURL URLWithString:@"http://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"];
-			NSData *listData = [NSData dataWithContentsOfURL:url];
+			NSDictionary *json;
+			NSError *error;
 			
-			NSError *error = nil;
-			NSDictionary *json = [NSJSONSerialization JSONObjectWithData:listData options:NSJSONReadingAllowFragments error:&error];
+			// Due to the high frequency of JSON deserialization errors, loop until there is no error
+			do {
+				error = nil;
+				
+				// Retrieve list of public images from Flickr
+				NSURL *url = [NSURL URLWithString:@"http://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"];
+				NSData *listData = [NSData dataWithContentsOfURL:url];
+			
+				json = [NSJSONSerialization JSONObjectWithData:listData options:NSJSONReadingAllowFragments error:&error];
 
-			if (error) {
 				// Make sure to call delegate on main queue
 				[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 					if ([aDelegate respondsToSelector:@selector(errorMessage:)]) {
-						[aDelegate errorMessage:[NSString stringWithFormat:@"%@ Please try again.", [error localizedDescription]]];
+						if (error)
+							[aDelegate errorMessage:[NSString stringWithFormat:@"%@ Retrying...", [error localizedDescription]]];
+						else
+							[aDelegate errorMessage:nil];
 					}
 				}];
 			}
-			else {
-				self.titles = [json valueForKeyPath:@"items.title"];
-				self.urls = [json valueForKeyPath:@"items.media.m"];
-				
-				// Setup image cache
-				NSMutableDictionary *cache = [[NSMutableDictionary alloc] initWithCapacity:[self.titles count]];
-				self.imageCache = cache;
-				[cache release];
-				
-				// Make sure to call delegate on main queue
-				[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-					if ([aDelegate respondsToSelector:@selector(imageTitles:)]) {
-						[aDelegate imageTitles:self.titles];
-					}
-				}];
-			}
+			while (error);
+
+			self.titles = [json valueForKeyPath:@"items.title"];
+			self.urls = [json valueForKeyPath:@"items.media.m"];
+			
+			// Setup image cache
+			NSMutableDictionary *cache = [[NSMutableDictionary alloc] initWithCapacity:[self.titles count]];
+			self.imageCache = cache;
+			[cache release];
+			
+			// Make sure to call delegate on main queue
+			[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+				if ([aDelegate respondsToSelector:@selector(imageTitles:)]) {
+					[aDelegate imageTitles:self.titles];
+				}
+			}];
 		}];
 		
 		self.operationQueue = queue;

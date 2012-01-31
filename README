@@ -25,7 +25,7 @@ KNOWN LIMITATIONS
 
 2. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
 
-3. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. If you get an error, simply tap Done and try again.
+3. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. 
 
 USAGE
 
