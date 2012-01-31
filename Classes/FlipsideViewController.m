@@ -30,17 +30,6 @@
 	[super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		ImageStore *store = [[ImageStore alloc] initWithDelegate:self];
-		
-		self.imageStore = store;
-		[store release];
-    }
-    return self;
-}
-							
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
@@ -51,13 +40,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+	// This will initiate the request to get the list of Flickr images
+	ImageStore *store = [[ImageStore alloc] initWithDelegate:self];
+	
+	self.imageStore = store;
+	[store release];
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
     
 	self.errorLabel = nil;
+	self.easyTableView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -85,12 +80,13 @@
 #pragma mark - EasyTableViewDelegate
 
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect {
-	UIView *container		= [[[UIView alloc] initWithFrame:rect] autorelease];;
+	// Create a container view for an EasyTableView cell
+	UIView *container = [[[UIView alloc] initWithFrame:rect] autorelease];;
 	
 	// Setup an image view to display an image
-	UIImageView *imageView			= [[UIImageView alloc] initWithFrame:CGRectMake(1, 0, rect.size.width-2, rect.size.height)];
-	imageView.tag					= IMAGE_TAG;
-	imageView.contentMode			= UIViewContentModeScaleAspectFill;
+	UIImageView *imageView	= [[UIImageView alloc] initWithFrame:CGRectMake(1, 0, rect.size.width-2, rect.size.height)];
+	imageView.tag			= IMAGE_TAG;
+	imageView.contentMode	= UIViewContentModeScaleAspectFill;
 	
 	[container addSubview:imageView];
 	[imageView release];
@@ -125,6 +121,7 @@
 #pragma mark - ImageStoreDelegate
 
 - (void)imageTitles:(NSArray *)titles {
+	// Now that we know how many images we will get, we can create our EasyTableView
 	[self setupEasyTableViewWithNumCells:[titles count]];
 }
 
