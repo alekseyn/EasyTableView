@@ -3,7 +3,7 @@
 //  EasyTableView
 //
 //  Created by Aleksey Novicov on 5/30/10.
-//  Copyright 2010 Yodel Code LLC. All rights reserved.
+//  Copyright 2010 Yodel Code. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -37,7 +37,7 @@
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numCols;
 		_cellWidthOrHeight	= width;
-
+		
 		[self createTableWithOrienation:EasyTableViewOrientationHorizontal];
 	}
     return self;
@@ -67,7 +67,7 @@
 	}
 	else
 		tableView	= [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-
+	
 	tableView.tag				= TABLEVIEW_TAG;
 	tableView.delegate			= self;
 	tableView.dataSource		= self;
@@ -106,10 +106,10 @@
 
 - (CGPoint)contentOffset {
 	CGPoint offset = self.tableView.contentOffset;
-
+	
 	if (_orientation == EasyTableViewOrientationHorizontal)
 		offset = CGPointMake(offset.y, offset.x);
-
+	
 	return offset;
 }
 
@@ -155,7 +155,7 @@
 		
 		UITableViewCell *deselectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:oldIndexPath];
 		UITableViewCell *selectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:_selectedIndexPath];
-
+		
 		if ([delegate respondsToSelector:@selector(easyTableView:selectedView:atIndex:deselectedView:)]) {
 			UIView *selectedView = [selectedCell viewWithTag:CELL_CONTENT_TAG];
 			UIView *deselectedView = [deselectedCell viewWithTag:CELL_CONTENT_TAG];
@@ -177,18 +177,33 @@
 	return [cell viewWithTag:CELL_CONTENT_TAG];
 }
 
+- (NSUInteger)indexForView:(UIView *)view {
+	NSArray *visibleCells = [self.tableView visibleCells];
+	
+	__block NSUInteger index = 0;
+	
+	[visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		UITableViewCell *cell = obj;
+		
+		if ([cell viewWithTag:CELL_CONTENT_TAG] == view) {
+			index = [self.tableView indexPathForCell:cell].row;
+			*stop = YES;
+		}
+	}];
+	
+	return index;
+}
 
 #pragma mark -
 #pragma mark Location
 
-- (CGPoint)offsetForView:(UIView *)cell {
+- (CGPoint)offsetForView:(UIView *)view {
 	// Get the location of the cell
-	CGPoint cellOrigin = [cell convertPoint:cell.frame.origin toView:self];
+	CGPoint cellOrigin = [view convertPoint:view.frame.origin toView:self];
 	
 	// No need to compensate for orientation since all values are already adjusted for orientation
 	return cellOrigin;
 }
-
 
 #pragma mark -
 #pragma mark TableViewDelegate
@@ -215,10 +230,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if ([delegate respondsToSelector:@selector(easyTableView:scrolledToOffset:)])
-		 [delegate easyTableView:self scrolledToOffset:self.contentOffset];
+		[delegate easyTableView:self scrolledToOffset:self.contentOffset];
 }
 
-		 
+
 #pragma mark -
 #pragma mark TableViewDataSource
 
@@ -262,7 +277,7 @@
 		}
 		else 
 			rotatedView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-
+		
 		// We want to make sure any expanded content is not visible when the cell is deselected
 		rotatedView.clipsToBounds = YES;
 		
@@ -273,7 +288,7 @@
 		[rotatedView release];
 	}
 	[self setCell:cell boundsForOrientation:_orientation];
-
+	
 	[self setDataForRotatedView:[cell.contentView viewWithTag:ROTATED_CELL_VIEW_TAG] forIndexPath:indexPath];
     return cell;
 }
@@ -302,7 +317,7 @@
 	// Add a default view if none is provided
 	if (content == nil)
 		content = [[[UIView alloc] initWithFrame:rotatedView.bounds] autorelease];
-
+	
 	content.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	content.tag = CELL_CONTENT_TAG;
 	[rotatedView addSubview:content];

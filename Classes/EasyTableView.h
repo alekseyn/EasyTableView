@@ -3,34 +3,34 @@
 //  EasyTableView
 //
 //  Created by Aleksey Novicov on 5/30/10.
-//  Copyright 2010 Yodel Code LLC. All rights reserved.
+//  Copyright 2010 Yodel Code. All rights reserved.
 //
 //
 /* ===========================================================================
  
  NOTES:	EasyTableView addresses two concerns. The first is the ability to have
-		a table view that only partially fills the screen. Normally one would use
-		UITableViewController but that requires table views that fill the whole
-		screen. EasyTableView addresses this problem by acting as the controller
-		for the embedded table view, and exposing table view functionality
-		with it's own delegate methods.
+ a table view that only partially fills the screen. Normally one would use
+ UITableViewController but that requires table views that fill the whole
+ screen. EasyTableView addresses this problem by acting as the controller
+ for the embedded table view, and exposing table view functionality
+ with it's own delegate methods.
  
-		The second concern addressed by EasyTableView is horizontal table views.
-		Table views were initially designed to be vertical only. EasyTableView
-		solves this problem by rotating the table view, and provides the same
-		interface as creating a vertical EasyTableView.
+ The second concern addressed by EasyTableView is horizontal table views.
+ Table views were initially designed to be vertical only. EasyTableView
+ solves this problem by rotating the table view, and provides the same
+ interface as creating a vertical EasyTableView.
  
-		Now you can create simple partial screen table views, either vertically
-		or horizontally, with the same interface!
-		
-		KNOWN LIMITATIONS:
+ Now you can create simple partial screen table views, either vertically
+ or horizontally, with the same interface!
  
-		This implementation currently only supports one section. The view relies
-		on three reserved view tags, 800 - 802.
-
-		A horizontal EasyTableView will correctly auto-resize it's overall length only.
-		A horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
-*/
+ KNOWN LIMITATIONS:
+ 
+ This implementation currently only supports one section. The view relies
+ on three reserved view tags, 800 - 802.
+ 
+ A horizontal EasyTableView will correctly auto-resize it's overall length only.
+ A horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
+ */
 
 #import <UIKit/UIKit.h>
 
@@ -79,5 +79,6 @@ typedef enum {
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
 - (UIView *)viewAtIndex:(NSUInteger)index;
 - (CGPoint)offsetForView:(UIView *)cell;
+- (NSUInteger)indexForView:(UIView *)cell;
 
 @end
