@@ -51,7 +51,12 @@ typedef enum {
 @optional
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
 - (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndex:(NSUInteger)index deselectedView:(UIView *)deselectedView;
+- (CGFloat)easyTableView:(EasyTableView *)easyTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view;
+- (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
+- (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
+- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
+- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
 @end
 
 
@@ -78,7 +83,9 @@ typedef enum {
 - (void)selectCellAtIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
 - (UIView *)viewAtIndex:(NSUInteger)index;
+- (UIView *)viewAtIndex:(NSUInteger)index inSection:(NSInteger)section;
 - (CGPoint)offsetForView:(UIView *)cell;
 - (NSUInteger)indexForView:(UIView *)cell;
+- (NSIndexPath*)indexPathForView:(UIView *)view;
 
 @end

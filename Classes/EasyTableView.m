@@ -12,7 +12,7 @@
 #define ANIMATION_DURATION	0.30
 
 @interface EasyTableView (PrivateMethods)
-- (void)createTableWithOrienation:(EasyTableViewOrientation)orientation;
+- (void)createTableWithOrientation:(EasyTableViewOrientation)orientation;
 - (void)prepareRotatedView:(UIView *)rotatedView;
 - (void)setDataForRotatedView:(UIView *)rotatedView forIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -38,7 +38,7 @@
 		_numItems			= numCols;
 		_cellWidthOrHeight	= width;
 		
-		[self createTableWithOrienation:EasyTableViewOrientationHorizontal];
+		[self createTableWithOrientation:EasyTableViewOrientationHorizontal];
 	}
     return self;
 }
@@ -49,13 +49,13 @@
 		_numItems			= numRows;
 		_cellWidthOrHeight	= height;
 		
-		[self createTableWithOrienation:EasyTableViewOrientationVertical];
+		[self createTableWithOrientation:EasyTableViewOrientationVertical];
     }
     return self;
 }
 
 
-- (void)createTableWithOrienation:(EasyTableViewOrientation)orientation {
+- (void)createTableWithOrientation:(EasyTableViewOrientation)orientation {
 	// Save the orientation so that the table view cell knows how to set itself up
 	_orientation = orientation;
 	
@@ -169,14 +169,52 @@
 	}
 }
 
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section{
+    if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
+        return [delegate easyTableView:self viewForHeaderInSection:section].frame.size.height;
+    }
+    return 0.0;
+}
 
-- (UIView *)viewAtIndex:(NSUInteger)index {
-	NSIndexPath *indexPath	= [NSIndexPath indexPathForRow:index inSection:0];
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
+        return [delegate easyTableView:self viewForFooterInSection:section].frame.size.height;
+    }
+    return 0.0;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
+        return [delegate easyTableView:self viewForHeaderInSection:section];
+    }
+    return nil;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
+        return [delegate easyTableView:self viewForFooterInSection:section];
+    }
+    return nil;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    if ([delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
+        return [delegate numberOfSectionsInEasyTableView:self];
+    }
+    
+    return 1;
+}
+
+- (UIView *)viewAtIndex:(NSUInteger)index inSection:(NSInteger)section{
+	NSIndexPath *indexPath	= [NSIndexPath indexPathForRow:index inSection:section];
 	UIView *cell			= [self.tableView cellForRowAtIndexPath:indexPath];
 	
 	return [cell viewWithTag:CELL_CONTENT_TAG];
 }
 
+//I recommend removing this method...since indexPath is more data, but for backwards compatibility it's still here
 - (NSUInteger)indexForView:(UIView *)view {
 	NSArray *visibleCells = [self.tableView visibleCells];
 	
@@ -192,6 +230,26 @@
 	}];
 	
 	return index;
+}
+
+- (NSIndexPath*)indexPathForView:(UIView *)view {
+	NSArray *visibleCells = [self.tableView visibleCells];
+	
+	__block NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	
+	[visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		UITableViewCell *cell = obj;
+		NSIndexPath* indexPath = [[NSIndexPath alloc] init];
+        
+		if ([cell viewWithTag:CELL_CONTENT_TAG] == view) {
+            
+            indexPath = [NSIndexPath indexPathForRow:[self.tableView indexPathForCell:cell].row inSection:[self.tableView indexPathForCell:cell].section];
+            
+			*stop = YES;
+		}
+	}];
+	
+	return indexPath;
 }
 
 #pragma mark -
@@ -215,7 +273,10 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return _cellWidthOrHeight;
+    if ([delegate respondsToSelector:@selector(easyTableView:heightForRowAtIndexPath:)]) {
+        return [delegate easyTableView:self heightForRowAtIndexPath:indexPath];
+    }
+    return _cellWidthOrHeight;
 }
 
 
