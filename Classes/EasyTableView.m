@@ -387,7 +387,11 @@
 
 - (void)setDataForRotatedView:(UIView *)rotatedView forIndexPath:(NSIndexPath *)indexPath {
 	UIView *content = [rotatedView viewWithTag:CELL_CONTENT_TAG];
-	[delegate easyTableView:self setDataForView:content forIndex:indexPath.row];
+    if (delegate && [delegate respondsToSelector:@selector(easyTableView:setDataForView:forIndexPath:)]) {
+        [delegate easyTableView:self setDataForView:content forIndexPath:indexPath];
+    } else {
+        [delegate easyTableView:self setDataForView:content forIndex:indexPath.row];
+    }
 }
 
 

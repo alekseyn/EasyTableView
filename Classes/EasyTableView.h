@@ -49,6 +49,7 @@ typedef enum {
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
 - (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndex:(NSUInteger)index;
 @optional
+- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath*)indexPath;
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
 - (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndex:(NSUInteger)index deselectedView:(UIView *)deselectedView;
 - (CGFloat)easyTableView:(EasyTableView *)easyTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
