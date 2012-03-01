@@ -138,9 +138,9 @@
 #pragma mark -
 #pragma mark Selection
 
-- (void)selectCellAtIndex:(NSUInteger)index animated:(BOOL)animated {
-	self.selectedIndexPath	= [NSIndexPath indexPathForRow:index inSection:0];
-	CGPoint defaultOffset	= CGPointMake(0, index  *_cellWidthOrHeight);
+- (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+	self.selectedIndexPath	= indexPath;
+	CGPoint defaultOffset	= CGPointMake(0, indexPath.row  *_cellWidthOrHeight);
 	
 	[self.tableView setContentOffset:defaultOffset animated:animated];
 }
@@ -156,41 +156,44 @@
 		UITableViewCell *deselectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:oldIndexPath];
 		UITableViewCell *selectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:_selectedIndexPath];
 		
-		if ([delegate respondsToSelector:@selector(easyTableView:selectedView:atIndex:deselectedView:)]) {
+		if ([delegate respondsToSelector:@selector(easyTableView:selectedView:atIndexPath:deselectedView:)]) {
 			UIView *selectedView = [selectedCell viewWithTag:CELL_CONTENT_TAG];
 			UIView *deselectedView = [deselectedCell viewWithTag:CELL_CONTENT_TAG];
 			
 			[delegate easyTableView:self
 					   selectedView:selectedView
-							atIndex:_selectedIndexPath.row
+						atIndexPath:_selectedIndexPath
 					 deselectedView:deselectedView];
 		}
 		[oldIndexPath release];
 	}
 }
 
--(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section{
+#pragma mark -
+#pragma mark Multiple Sections
+
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
         return [delegate easyTableView:self viewForHeaderInSection:section].frame.size.height;
     }
     return 0.0;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
         return [delegate easyTableView:self viewForFooterInSection:section].frame.size.height;
     }
     return 0.0;
 }
 
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
         return [delegate easyTableView:self viewForHeaderInSection:section];
     }
     return nil;
 }
 
--(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
         return [delegate easyTableView:self viewForFooterInSection:section];
@@ -198,62 +201,37 @@
     return nil;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     if ([delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
         return [delegate numberOfSectionsInEasyTableView:self];
     }
-    
     return 1;
 }
 
-- (UIView *)viewAtIndex:(NSUInteger)index inSection:(NSInteger)section{
-	NSIndexPath *indexPath	= [NSIndexPath indexPathForRow:index inSection:section];
-	UIView *cell			= [self.tableView cellForRowAtIndexPath:indexPath];
-	
+#pragma mark -
+#pragma mark Location and Paths
+
+- (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath {
+	UIView *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 	return [cell viewWithTag:CELL_CONTENT_TAG];
 }
 
-//I recommend removing this method...since indexPath is more data, but for backwards compatibility it's still here
-- (NSUInteger)indexForView:(UIView *)view {
+- (NSIndexPath *)indexPathForView:(UIView *)view {
 	NSArray *visibleCells = [self.tableView visibleCells];
 	
-	__block NSUInteger index = 0;
+	__block NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	
 	[visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		UITableViewCell *cell = obj;
-		
-		if ([cell viewWithTag:CELL_CONTENT_TAG] == view) {
-			index = [self.tableView indexPathForCell:cell].row;
-			*stop = YES;
-		}
-	}];
-	
-	return index;
-}
-
-- (NSIndexPath*)indexPathForView:(UIView *)view {
-	NSArray *visibleCells = [self.tableView visibleCells];
-	
-	__block NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	
-	[visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		UITableViewCell *cell = obj;
-		NSIndexPath* indexPath = [[NSIndexPath alloc] init];
         
 		if ([cell viewWithTag:CELL_CONTENT_TAG] == view) {
-            
-            indexPath = [NSIndexPath indexPathForRow:[self.tableView indexPathForCell:cell].row inSection:[self.tableView indexPathForCell:cell].section];
-            
+            indexPath = [self.tableView indexPathForCell:cell];
 			*stop = YES;
 		}
 	}];
-	
 	return indexPath;
 }
-
-#pragma mark -
-#pragma mark Location
 
 - (CGPoint)offsetForView:(UIView *)view {
 	// Get the location of the cell
@@ -273,8 +251,8 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([delegate respondsToSelector:@selector(easyTableView:heightForRowAtIndexPath:)]) {
-        return [delegate easyTableView:self heightForRowAtIndexPath:indexPath];
+    if ([delegate respondsToSelector:@selector(easyTableView:heightOrWidthForCellAtIndexPath:)]) {
+        return [delegate easyTableView:self heightOrWidthForCellAtIndexPath:indexPath];
     }
     return _cellWidthOrHeight;
 }
@@ -358,8 +336,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSUInteger numOfItems = _numItems;
 	
-	if ([delegate respondsToSelector:@selector(numberOfCellsForEasyTableView:)]) {
-		numOfItems = [delegate numberOfCellsForEasyTableView:self];
+	if ([delegate respondsToSelector:@selector(numberOfCellsForEasyTableView:inSection:)]) {
+		numOfItems = [delegate numberOfCellsForEasyTableView:self inSection:section];
 		
 		// Animate any changes in the number of items
 		[tableView beginUpdates];
@@ -387,11 +365,8 @@
 
 - (void)setDataForRotatedView:(UIView *)rotatedView forIndexPath:(NSIndexPath *)indexPath {
 	UIView *content = [rotatedView viewWithTag:CELL_CONTENT_TAG];
-    if (delegate && [delegate respondsToSelector:@selector(easyTableView:setDataForView:forIndexPath:)]) {
-        [delegate easyTableView:self setDataForView:content forIndexPath:indexPath];
-    } else {
-        [delegate easyTableView:self setDataForView:content forIndex:indexPath.row];
-    }
+	
+   [delegate easyTableView:self setDataForView:content forIndexPath:indexPath];
 }
 
 

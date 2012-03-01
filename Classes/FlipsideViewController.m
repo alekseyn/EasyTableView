@@ -108,14 +108,14 @@
 
 // Second delegate populates the views with data from a data source
 
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndex:(NSUInteger)index {
+- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
 	// Set the image title for the given index
 	UILabel *label = (UILabel *)[view viewWithTag:LABEL_TAG];
-	label.text = [self.imageStore.titles objectAtIndex:index];
+	label.text = [self.imageStore.titles objectAtIndex:indexPath.row];
 	
 	// Set the image for the given index
 	UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
-	imageView.image = [self.imageStore imageAtIndex:index];
+	imageView.image = [self.imageStore imageAtIndex:indexPath.row];
 }
 
 #pragma mark - ImageStoreDelegate
@@ -130,7 +130,8 @@
 }
 
 - (void)image:(UIImage *)image loadedAtIndex:(NSUInteger)index {
-	UIView *view = [self.easyTableView viewAtIndex:index];
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+	UIView *view = [self.easyTableView viewAtIndexPath:indexPath];
 	
 	// The view might be nil if the cell has scrolled offscreen while we were waiting for the image to load.
 	// In that case, there is no need to set the image, nor is it even possible.

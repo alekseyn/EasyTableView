@@ -47,17 +47,15 @@ typedef enum {
 
 @protocol EasyTableViewDelegate <NSObject>
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndex:(NSUInteger)index;
-@optional
 - (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath*)indexPath;
+@optional
+- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView;
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
-- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndex:(NSUInteger)index deselectedView:(UIView *)deselectedView;
-- (CGFloat)easyTableView:(EasyTableView *)easyTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view;
-- (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
+- (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
+- (CGFloat)easyTableView:(EasyTableView *)easyTableView heightOrWidthForCellAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 
@@ -81,12 +79,10 @@ typedef enum {
 
 - (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCells ofWidth:(CGFloat)cellWidth;
 - (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numCells ofHeight:(CGFloat)cellHeight;
-- (void)selectCellAtIndex:(NSUInteger)index animated:(BOOL)animated;
-- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
-- (UIView *)viewAtIndex:(NSUInteger)index;
-- (UIView *)viewAtIndex:(NSUInteger)index inSection:(NSInteger)section;
 - (CGPoint)offsetForView:(UIView *)cell;
-- (NSUInteger)indexForView:(UIView *)cell;
-- (NSIndexPath*)indexPathForView:(UIView *)view;
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
+- (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
+- (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
+- (NSIndexPath*)indexPathForView:(UIView *)cell;
 
 @end

@@ -10,14 +10,22 @@
 #import "EasyTableViewController.h"
 #import "EasyTableView.h"
 
+#define SHOW_MULTIPLE_SECTIONS		1		// If commented out, multiple sections with header and footer views are not shown
+
 #define PORTRAIT_WIDTH				768
 #define LANDSCAPE_HEIGHT			(1024-20)
-#define NUM_OF_CELLS				21
 #define HORIZONTAL_TABLEVIEW_HEIGHT	140
 #define VERTICAL_TABLEVIEW_WIDTH	180
 #define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
 
 #define BORDER_VIEW_TAG				10
+
+#ifdef SHOW_MULTIPLE_SECTIONS
+	#define NUM_OF_CELLS			10
+	#define NUM_OF_SECTIONS			2
+#else
+	#define NUM_OF_CELLS			21
+#endif
 
 @interface EasyTableViewController (MyPrivateMethods)
 - (void)setupHorizontalView;
@@ -49,7 +57,7 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 }
 
@@ -57,7 +65,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
-
 
 #pragma mark -
 #pragma mark EasyTableView Initialization
@@ -139,18 +146,18 @@
 
 // Second delegate populates the views with data from a data source
 
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndex:(NSUInteger)index {
+- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
 	UILabel *label	= (UILabel *)view;
-	label.text		= [NSString stringWithFormat:@"%i", index];
+	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
 	
 	// selectedIndexPath can be nil so we need to test for that condition
-	BOOL isSelected = (easyTableView.selectedIndexPath) ? (easyTableView.selectedIndexPath.row == index) : NO;
+	BOOL isSelected = (easyTableView.selectedIndexPath) ? ([easyTableView.selectedIndexPath compare:indexPath] == NSOrderedSame) : NO;
 	[self borderIsSelected:isSelected forView:view];		
 }
 
-// Optional - Tracks the selection of a particular cell
+// Optional delegate to track the selection of a particular cell
 
-- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndex:(NSUInteger)index deselectedView:(UIView *)deselectedView {
+- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView {
 	[self borderIsSelected:YES forView:selectedView];		
 	
 	if (deselectedView) 
@@ -160,52 +167,54 @@
 	bigLabel.text	= label.text;
 }
 
-// Optional - Delivers the number of Sections in the TableView
+#pragma mark -
+#pragma mark Optional EasyTableView delegate methods for section headers and footers
+
+#ifdef SHOW_MULTIPLE_SECTIONS
+
+// Optional - Delivers the number of sections in the TableView
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView{
-    return 2;
+    return NUM_OF_SECTIONS;
 }
 
-//Optional - Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implementd
--(NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section{
-    return 2;
+// Optional - Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
+-(NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section {
+    return NUM_OF_CELLS;
 }
 
-//Optional - Delivers the header view
-- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section{
+// Optional - Delivers the header view
+- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     
     switch (section) {
         case 0:
-            view.backgroundColor = [UIColor redColor];
+            view.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
             break;
         default:
-            view.backgroundColor = [UIColor blueColor];
+            view.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
             break;
     }
     
     return view;
 }
 
+// Optional - Delivers the footer view
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     
     switch (section) {
         case 0:
-            view.backgroundColor = [UIColor greenColor];
+            view.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
             break;
         default:
-            view.backgroundColor = [UIColor yellowColor];
+            view.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
     }
     
     return view;
 }
 
-//Optional - Dynamic heights!
-- (CGFloat)easyTableView:(EasyTableView *)easyTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return (1+0.1*indexPath.row)*VERTICAL_TABLEVIEW_WIDTH;
-}
+#endif
 
 #pragma mark - Flipside View Controller
 
