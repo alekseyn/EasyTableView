@@ -160,6 +160,53 @@
 	bigLabel.text	= label.text;
 }
 
+// Optional - Delivers the number of Sections in the TableView
+- (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView{
+    return 2;
+}
+
+//Optional - Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implementd
+-(NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section{
+    return 2;
+}
+
+//Optional - Delivers the header view
+- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    
+    switch (section) {
+        case 0:
+            view.backgroundColor = [UIColor redColor];
+            break;
+        default:
+            view.backgroundColor = [UIColor blueColor];
+            break;
+    }
+    
+    return view;
+}
+
+- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    
+    switch (section) {
+        case 0:
+            view.backgroundColor = [UIColor greenColor];
+            break;
+        default:
+            view.backgroundColor = [UIColor yellowColor];
+            break;
+    }
+    
+    return view;
+}
+
+//Optional - Dynamic heights!
+- (CGFloat)easyTableView:(EasyTableView *)easyTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return (1+0.1*indexPath.row)*VERTICAL_TABLEVIEW_WIDTH;
+}
+
 #pragma mark - Flipside View Controller
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
