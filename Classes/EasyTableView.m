@@ -174,29 +174,57 @@
 
 -(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
-        return [delegate easyTableView:self viewForHeaderInSection:section].frame.size.height;
+        UIView *headerView = [delegate easyTableView:self viewForHeaderInSection:section];
+		if (_orientation == EasyTableViewOrientationHorizontal)
+			return headerView.frame.size.width;
+		else 
+			return headerView.frame.size.height;
     }
     return 0.0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
-        return [delegate easyTableView:self viewForFooterInSection:section].frame.size.height;
+        UIView *footerView = [delegate easyTableView:self viewForFooterInSection:section];
+		if (_orientation == EasyTableViewOrientationHorizontal)
+			return footerView.frame.size.width;
+		else 
+			return footerView.frame.size.height;
     }
     return 0.0;
 }
 
+- (UIView *)viewToHoldSectionView:(UIView *)sectionView {
+	// Enforce proper section header/footer view height abd origin. This is required because
+	// of the way UITableView resizes section views on orientation changes.
+	if (_orientation == EasyTableViewOrientationHorizontal)
+		sectionView.frame = CGRectMake(0, 0, sectionView.frame.size.width, self.frame.size.height);
+	
+	UIView *rotatedView = [[UIView alloc] initWithFrame:sectionView.frame];
+	
+	if (_orientation == EasyTableViewOrientationHorizontal) {
+		rotatedView.transform = CGAffineTransformMakeRotation(M_PI/2);
+		sectionView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+	}
+	else {
+		sectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	}
+	[rotatedView addSubview:sectionView];
+	return rotatedView;
+}
+
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
-        return [delegate easyTableView:self viewForHeaderInSection:section];
+		UIView *sectionView = [delegate easyTableView:self viewForHeaderInSection:section];
+		return [self viewToHoldSectionView:sectionView];
     }
     return nil;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
     if ([delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
-        return [delegate easyTableView:self viewForFooterInSection:section];
+		UIView *sectionView = [delegate easyTableView:self viewForFooterInSection:section];
+		return [self viewToHoldSectionView:sectionView];
     }
     return nil;
 }

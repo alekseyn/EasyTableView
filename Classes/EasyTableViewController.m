@@ -172,46 +172,66 @@
 
 #ifdef SHOW_MULTIPLE_SECTIONS
 
-// Optional - Delivers the number of sections in the TableView
+// Delivers the number of sections in the TableView
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView{
     return NUM_OF_SECTIONS;
 }
 
-// Optional - Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
+// Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
 -(NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section {
     return NUM_OF_CELLS;
 }
 
-// Optional - Delivers the header view
-- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    
+// The height of the header section view MUST be the same as your HORIZONTAL_TABLEVIEW_HEIGHT (horizontal EasyTableView only)
+- (UIView *)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section {
+    UILabel *label = [[UILabel alloc] init];
+	label.text = @"HEADER";
+	label.textColor = [UIColor whiteColor];
+	label.textAlignment = UITextAlignmentCenter;
+   
+	if (easyTableView == self.horizontalView) {
+		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
+	}
+	if (easyTableView == self.verticalView) {
+		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, 20);
+	}
+
     switch (section) {
         case 0:
-            view.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+            label.backgroundColor = [UIColor redColor];
             break;
         default:
-            view.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+            label.backgroundColor = [UIColor blueColor];
             break;
     }
-    
-    return view;
+    return label;
 }
 
-// Optional - Delivers the footer view
-- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+// The height of the footer section view MUST be the same as your HORIZONTAL_TABLEVIEW_HEIGHT (horizontal EasyTableView only)
+- (UIView *)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section {
+    UILabel *label = [[UILabel alloc] init];
+	label.text = @"FOOTER";
+	label.textColor = [UIColor yellowColor];
+	label.textAlignment = UITextAlignmentCenter;
+	label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, 20);
     
+	if (easyTableView == self.horizontalView) {
+		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
+	}
+	if (easyTableView == self.verticalView) {
+		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, 20);
+	}
+	
     switch (section) {
         case 0:
-            view.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
+            label.backgroundColor = [UIColor purpleColor];
             break;
         default:
-            view.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            label.backgroundColor = [UIColor brownColor];
             break;
     }
     
-    return view;
+    return label;
 }
 
 #endif
