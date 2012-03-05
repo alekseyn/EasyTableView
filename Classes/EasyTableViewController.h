@@ -16,9 +16,9 @@
 	EasyTableView *horizontalView;
 }
 
-@property (nonatomic, retain) UILabel *bigLabel;
-@property (nonatomic, retain) EasyTableView *verticalView;
-@property (nonatomic, retain) EasyTableView *horizontalView;
+@property (nonatomic) UILabel *bigLabel;
+@property (nonatomic) EasyTableView *verticalView;
+@property (nonatomic) EasyTableView *horizontalView;
 
 @end
 

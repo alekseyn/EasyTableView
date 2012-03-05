@@ -16,14 +16,6 @@
 @synthesize urls = _urls;
 @synthesize imageCache = _imageCache;
 
-- (void)dealloc {
-	[_operationQueue release];
-	[_titles release];
-	[_urls release];
-	[_imageCache release];
-	
-	[super dealloc];
-}
 
 - (id)initWithDelegate:(id<ImageStoreDelegate>)aDelegate {
     self = [super init];
@@ -74,7 +66,6 @@
 				// Setup image cache
 				NSMutableDictionary *cache = [[NSMutableDictionary alloc] initWithCapacity:[self.titles count]];
 				self.imageCache = cache;
-				[cache release];
 				
 				// Make sure to call delegate on main queue
 				[[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -86,7 +77,6 @@
 		}];
 		
 		self.operationQueue = queue;
-		[queue release];
     }
     return self;
 }

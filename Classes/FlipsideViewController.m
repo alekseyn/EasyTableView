@@ -22,13 +22,6 @@
 @synthesize easyTableView = _easyTableView;
 @synthesize errorLabel = _errorLabel;
 
-- (void)dealloc {
-	[_imageStore release];
-	[_easyTableView release];
-	[_errorLabel release];
-	
-	[super dealloc];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -45,7 +38,6 @@
 	ImageStore *store = [[ImageStore alloc] initWithDelegate:self];
 	
 	self.imageStore = store;
-	[store release];
 }
 
 - (void)viewDidUnload {
@@ -74,14 +66,13 @@
 	self.easyTableView.autoresizingMask				= UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
 	
 	[self.view addSubview:self.easyTableView];
-	[view release];
 }
 
 #pragma mark - EasyTableViewDelegate
 
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect {
 	// Create a container view for an EasyTableView cell
-	UIView *container = [[[UIView alloc] initWithFrame:rect] autorelease];;
+	UIView *container = [[UIView alloc] initWithFrame:rect];;
 	
 	// Setup an image view to display an image
 	UIImageView *imageView	= [[UIImageView alloc] initWithFrame:CGRectMake(1, 0, rect.size.width-2, rect.size.height)];
@@ -89,7 +80,6 @@
 	imageView.contentMode	= UIViewContentModeScaleAspectFill;
 	
 	[container addSubview:imageView];
-	[imageView release];
 	
 	// Setup a label to display the image title
 	CGRect labelRect		= CGRectMake(10, rect.size.height-20, rect.size.width-20, 20);
@@ -101,7 +91,6 @@
 	label.tag				= LABEL_TAG;
 	
 	[container addSubview:label];
-	[label release];
 	
 	return container;
 }

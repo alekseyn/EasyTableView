@@ -60,19 +60,16 @@ typedef enum {
 
 
 @interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource> {
-	id<EasyTableViewDelegate>	delegate;
-	NSIndexPath					*_selectedIndexPath;
-	UIColor						*cellBackgroundColor;
-	CGFloat						_cellWidthOrHeight;
-	NSUInteger					_numItems;
-	EasyTableViewOrientation	_orientation;
+@private
+	CGFloat		_cellWidthOrHeight;
+	NSUInteger	_numItems;
 }
 
-@property (nonatomic, assign) id<EasyTableViewDelegate> delegate;
-@property (nonatomic, readonly) UITableView *tableView;
-@property (nonatomic, readonly) NSArray *visibleViews;
-@property (nonatomic, retain) NSIndexPath *selectedIndexPath;
-@property (nonatomic, retain) UIColor *cellBackgroundColor;
+@property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
+@property (nonatomic, readonly, weak) UITableView *tableView;
+@property (nonatomic, readonly, weak) NSArray *visibleViews;
+@property (nonatomic) NSIndexPath *selectedIndexPath;
+@property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic, readonly) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
 @property (nonatomic, assign) NSUInteger numberOfCells;

@@ -27,11 +27,6 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (void)dealloc {
-	[cellBackgroundColor release];
-	[_selectedIndexPath release];
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCols ofWidth:(CGFloat)width {
     if (self = [super initWithFrame:frame]) {
@@ -81,7 +76,6 @@
 	tableView.showsHorizontalScrollIndicator = NO;
 	
 	[self addSubview:tableView];
-	[tableView release];
 }
 
 
@@ -150,8 +144,7 @@
 	if (![_selectedIndexPath isEqual:indexPath]) {
 		NSIndexPath *oldIndexPath = [_selectedIndexPath copy];
 		
-		[_selectedIndexPath release];
-		_selectedIndexPath = [indexPath retain];
+		_selectedIndexPath = indexPath;
 		
 		UITableViewCell *deselectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:oldIndexPath];
 		UITableViewCell *selectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:_selectedIndexPath];
@@ -165,7 +158,6 @@
 						atIndexPath:_selectedIndexPath
 					 deselectedView:deselectedView];
 		}
-		[oldIndexPath release];
 	}
 }
 
@@ -319,7 +311,7 @@
     
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
 		[self setCell:cell boundsForOrientation:_orientation];
 		
@@ -352,7 +344,6 @@
 		[self prepareRotatedView:rotatedView];
 		
 		[cell.contentView addSubview:rotatedView];
-		[rotatedView release];
 	}
 	[self setCell:cell boundsForOrientation:_orientation];
 	
@@ -383,7 +374,7 @@
 	
 	// Add a default view if none is provided
 	if (content == nil)
-		content = [[[UIView alloc] initWithFrame:rotatedView.bounds] autorelease];
+		content = [[UIView alloc] initWithFrame:rotatedView.bounds];
 	
 	content.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	content.tag = CELL_CONTENT_TAG;

@@ -23,6 +23,9 @@ So now you can create simple partial screen table views, either vertically or ho
 
 CHANGES
 
+MARCH 5, 2012
+Updated to support ARC. EasyTableView now requires ARC.
+
 MARCH 1, 2012
 Whereas before EasyTableView was implemented to work with only one table view section, it has now been generalized to work with multiple table view sections. It also now supports section headers and footers. If you would like too see the demo run using just a single table view section, comment out the following line in EasyTableViewController.m:
 

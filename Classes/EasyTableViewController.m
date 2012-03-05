@@ -36,12 +36,6 @@
 
 @synthesize bigLabel, verticalView, horizontalView;
 
-- (void)dealloc {
-	[bigLabel release];
-	[horizontalView release];
-	[verticalView release];
-    [super dealloc];
-}
 
 
 - (void)viewDidLoad {
@@ -82,7 +76,6 @@
 	horizontalView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 	
 	[self.view addSubview:horizontalView];
-	[view release];
 }
 
 
@@ -102,7 +95,6 @@
 	verticalView.tableView.contentInset		= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
 	
 	[self.view addSubview:verticalView];
-	[view release];
 }
 
 
@@ -123,7 +115,7 @@
 
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect {
 	CGRect labelRect		= CGRectMake(10, 10, rect.size.width-20, rect.size.height-20);
-	UILabel *label			= [[[UILabel alloc] initWithFrame:labelRect] autorelease];
+	UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
 	label.textAlignment		= UITextAlignmentCenter;
 	label.textColor			= [UIColor whiteColor];
 	label.font				= [UIFont boldSystemFontOfSize:60];
@@ -139,7 +131,6 @@
 	borderView.tag				= BORDER_VIEW_TAG;
 	
 	[label addSubview:borderView];
-	[borderView release];
 		 
 	return label;
 }
@@ -243,7 +234,7 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-	FlipsideViewController *controller = [[[FlipsideViewController alloc] initWithNibName:@"FlipsideViewController" bundle:nil] autorelease];
+	FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideViewController" bundle:nil];
 	controller.delegate = self;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:controller animated:YES];
