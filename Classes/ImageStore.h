@@ -18,7 +18,7 @@
 
 @interface ImageStore : NSObject
 
-@property (nonatomic, weak) id<ImageStoreDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<ImageStoreDelegate> delegate;
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) NSArray *titles;
 @property (nonatomic) NSArray *urls;
