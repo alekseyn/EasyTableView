@@ -388,6 +388,9 @@
    [delegate easyTableView:self setDataForView:content forIndexPath:indexPath];
 }
 
+-(void)reloadData{
+    [self.tableView reloadData];
+}
 
 @end
 
