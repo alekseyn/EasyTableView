@@ -65,9 +65,9 @@ typedef enum {
 	NSUInteger	_numItems;
 }
 
-@property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
-@property (nonatomic, readonly, weak) UITableView *tableView;
-@property (nonatomic, readonly, weak) NSArray *visibleViews;
+@property (nonatomic, unsafe_unretained) id<EasyTableViewDelegate> delegate;
+@property (nonatomic, readonly, unsafe_unretained) UITableView *tableView;
+@property (nonatomic, readonly, unsafe_unretained) NSArray *visibleViews;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic, readonly) EasyTableViewOrientation orientation;
@@ -81,5 +81,6 @@ typedef enum {
 - (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
 - (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath*)indexPathForView:(UIView *)cell;
+- (void)reloadData;
 
 @end
