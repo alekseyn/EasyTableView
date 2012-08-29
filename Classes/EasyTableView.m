@@ -11,7 +11,29 @@
 
 #define ANIMATION_DURATION	0.30
 
-@interface EasyTableView (PrivateMethods)
+@interface EasyTableViewCell : UITableViewCell
+
+- (void)prepareForReuse;
+
+@end
+
+@implementation EasyTableViewCell
+
+
+- (void) prepareForReuse
+{
+    UIView *content = [self viewWithTag:CELL_CONTENT_TAG];
+    
+    if ([content respondsToSelector:@selector(prepareForReuse)])
+    {
+        [content performSelector:@selector(prepareForReuse)];
+    }
+
+}
+@end
+
+
+@interface EasyTableView ()
 - (void)createTableWithOrientation:(EasyTableViewOrientation)orientation;
 - (void)prepareRotatedView:(UIView *)rotatedView;
 - (void)setDataForRotatedView:(UIView *)rotatedView forIndexPath:(NSIndexPath *)indexPath;
@@ -311,7 +333,7 @@
     
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[EasyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
 		[self setCell:cell boundsForOrientation:_orientation];
 		
