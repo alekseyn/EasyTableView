@@ -84,7 +84,11 @@
 	// Setup a label to display the image title
 	CGRect labelRect		= CGRectMake(10, rect.size.height-20, rect.size.width-20, 20);
 	UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
 	label.textAlignment		= UITextAlignmentCenter;
+#else
+	label.textAlignment		= NSTextAlignmentCenter;
+#endif
 	label.textColor			= [UIColor colorWithWhite:1.0 alpha:0.5];
 	label.backgroundColor	= [UIColor clearColor];
 	label.font				= [UIFont boldSystemFontOfSize:14];

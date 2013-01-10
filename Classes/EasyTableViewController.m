@@ -116,7 +116,11 @@
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect {
 	CGRect labelRect		= CGRectMake(10, 10, rect.size.width-20, rect.size.height-20);
 	UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
 	label.textAlignment		= UITextAlignmentCenter;
+#else
+	label.textAlignment		= NSTextAlignmentCenter;
+#endif
 	label.textColor			= [UIColor whiteColor];
 	label.font				= [UIFont boldSystemFontOfSize:60];
 	
@@ -178,7 +182,11 @@
     UILabel *label = [[UILabel alloc] init];
 	label.text = @"HEADER";
 	label.textColor = [UIColor whiteColor];
-	label.textAlignment = UITextAlignmentCenter;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+	label.textAlignment		= UITextAlignmentCenter;
+#else
+	label.textAlignment		= NSTextAlignmentCenter;
+#endif
    
 	if (easyTableView == self.horizontalView) {
 		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
@@ -203,7 +211,11 @@
     UILabel *label = [[UILabel alloc] init];
 	label.text = @"FOOTER";
 	label.textColor = [UIColor yellowColor];
-	label.textAlignment = UITextAlignmentCenter;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+	label.textAlignment		= UITextAlignmentCenter;
+#else
+	label.textAlignment		= NSTextAlignmentCenter;
+#endif
 	label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, 20);
     
 	if (easyTableView == self.horizontalView) {
@@ -230,14 +242,14 @@
 #pragma mark - Flipside View Controller
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)showInfo:(id)sender {
 	FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideViewController" bundle:nil];
 	controller.delegate = self;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-	[self presentModalViewController:controller animated:YES];
+	[self presentViewController:controller animated:YES completion:nil];
 }
 
 @end

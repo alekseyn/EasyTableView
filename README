@@ -1,4 +1,4 @@
-EasyTableView Notes - Updated March 1, 2012
+EasyTableView Notes - Updated January 10, 2013
 
 IMPORTANT NOTE: The API for EasyTableView has changed of March 1, 2012. So if you have been a consumer of EasyTableView prior to this date, you may find that this update breaks your existing projects. This new release has support for multiple sections, and section headers and footers. To fix any problems created by this update, simply replace any "index" parameter with an "indexPath" parameter. If you don't have an indexPath parameter, you can easily create an indexPatch for an index with:
 
@@ -22,6 +22,9 @@ The second concern addressed by EasyTableView is horizontal table views. Table v
 So now you can create simple partial screen table views, either vertically or horizontally, all with the same interface.
 
 CHANGES
+
+JANUARY 10, 2013 - Version 1.1
+Updated for iOS 6. Also added new setScrollFraction method added which will scroll the table view to a fraction of the total scroll length.
 
 MARCH 5, 2012
 Updated to support ARC. EasyTableView now requires ARC.

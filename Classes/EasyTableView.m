@@ -108,6 +108,16 @@
 }
 
 
+- (CGSize)contentSize {
+	CGSize size = self.tableView.contentSize;
+	
+	if (_orientation == EasyTableViewOrientationHorizontal)
+		size = CGSizeMake(size.height, size.width);
+	
+	return size;
+}
+
+
 - (void)setContentOffset:(CGPoint)offset {
 	if (_orientation == EasyTableViewOrientationHorizontal)
 		self.tableView.contentOffset = CGPointMake(offset.y, offset.x);
@@ -128,6 +138,13 @@
 	[self.tableView setContentOffset:newOffset animated:animated];
 }
 
+- (void)setScrollFraction:(CGFloat)fraction animated:(BOOL)animated {
+	CGFloat maxScrollAmount = [self contentSize].width - self.bounds.size.width;
+
+	CGPoint offset = self.contentOffset;
+	offset.x = maxScrollAmount * fraction;
+	[self setContentOffset:offset animated:animated];
+}
 
 #pragma mark -
 #pragma mark Selection
@@ -290,6 +307,15 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if ([delegate respondsToSelector:@selector(easyTableView:scrolledToOffset:)])
 		[delegate easyTableView:self scrolledToOffset:self.contentOffset];
+	
+	CGFloat amountScrolled	= self.contentOffset.x;
+	CGFloat maxScrollAmount = [self contentSize].width - self.bounds.size.width;
+	
+	if (amountScrolled > maxScrollAmount) amountScrolled = maxScrollAmount;
+	if (amountScrolled < 0) amountScrolled = 0;
+	
+	if ([delegate respondsToSelector:@selector(easyTableView:scrolledToFraction:)])
+		[delegate easyTableView:self scrolledToFraction:amountScrolled/maxScrollAmount];
 }
 
 
@@ -388,6 +414,9 @@
    [delegate easyTableView:self setDataForView:content forIndexPath:indexPath];
 }
 
+-(void)reloadData{
+    [self.tableView reloadData];
+}
 
 @end
 

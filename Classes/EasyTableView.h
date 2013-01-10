@@ -51,6 +51,7 @@ typedef enum {
 @optional
 - (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView;
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
+- (void)easyTableView:(EasyTableView *)easyTableView scrolledToFraction:(CGFloat)fraction;
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
 - (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
@@ -65,9 +66,9 @@ typedef enum {
 	NSUInteger	_numItems;
 }
 
-@property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
-@property (nonatomic, readonly, weak) UITableView *tableView;
-@property (nonatomic, readonly, weak) NSArray *visibleViews;
+@property (nonatomic, unsafe_unretained) id<EasyTableViewDelegate> delegate;
+@property (nonatomic, readonly, unsafe_unretained) UITableView *tableView;
+@property (nonatomic, readonly, unsafe_unretained) NSArray *visibleViews;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic, readonly) EasyTableViewOrientation orientation;
@@ -78,8 +79,10 @@ typedef enum {
 - (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numCells ofHeight:(CGFloat)cellHeight;
 - (CGPoint)offsetForView:(UIView *)cell;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
+- (void)setScrollFraction:(CGFloat)fraction animated:(BOOL)animated;
 - (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
 - (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath*)indexPathForView:(UIView *)cell;
+- (void)reloadData;
 
 @end
