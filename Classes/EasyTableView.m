@@ -22,10 +22,10 @@
 
 - (void) prepareForReuse
 {
-    UIView *content = [self viewWithTag:CELL_CONTENT_TAG];
+    [super prepareForReuse];
     
-    if ([content respondsToSelector:@selector(prepareForReuse)])
-    {
+    UIView *content = [self viewWithTag:CELL_CONTENT_TAG];
+    if ([content respondsToSelector:@selector(prepareForReuse)]) {
         [content performSelector:@selector(prepareForReuse)];
     }
 
