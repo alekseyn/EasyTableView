@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "EasyTableView"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "Horizontal and vertical scrolling table views for iOS."
   s.homepage     = "https://github.com/alekseyn/EasyTableView"
   s.license      = { :type => 'MIT' }
