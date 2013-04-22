@@ -30,6 +30,17 @@
     }
 
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if ( CGAffineTransformEqualToTransform(CGAffineTransformMakeRotation(-M_PI/2), self.superview.transform) &&
+        self.superview.frame.size.height > 0 && self.frame.size.height > 0 ) {
+        
+        [self.contentView viewWithTag:ROTATED_CELL_VIEW_TAG].frame = CGRectMake(0, 0, self.superview.frame.size.height, self.frame.size.height);
+    }
+}
+
 @end
 
 
