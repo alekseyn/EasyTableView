@@ -13,12 +13,9 @@
 
 @interface EasyTableViewCell : UITableViewCell
 
-- (void)prepareForReuse;
-
 @end
 
 @implementation EasyTableViewCell
-
 
 - (void) prepareForReuse
 {
@@ -28,15 +25,8 @@
     if ([content respondsToSelector:@selector(prepareForReuse)]) {
         [content performSelector:@selector(prepareForReuse)];
     }
-
 }
-@end
 
-
-@interface EasyTableView ()
-- (void)createTableWithOrientation:(EasyTableViewOrientation)orientation;
-- (void)prepareRotatedView:(UIView *)rotatedView;
-- (void)setDataForRotatedView:(UIView *)rotatedView forIndexPath:(NSIndexPath *)indexPath;
 @end
 
 
