@@ -10,10 +10,7 @@
 
 @class EasyTableViewController;
 
-@interface EasyTableAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    EasyTableViewController *viewController;
-}
+@interface EasyTableAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic) IBOutlet UIWindow *window;
 @property (nonatomic) IBOutlet EasyTableViewController *viewController;

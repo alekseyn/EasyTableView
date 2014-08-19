@@ -11,18 +11,13 @@
 
 @implementation EasyTableAppDelegate
 
-@synthesize window;
-@synthesize viewController;
-
-
-#pragma mark -
-#pragma mark Application lifecycle
+#pragma mark - Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after app launch. 
-    window.rootViewController = viewController;
-    [window makeKeyAndVisible];
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
 
 	return YES;
 }
@@ -51,8 +46,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Memory management
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     /*

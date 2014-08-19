@@ -60,8 +60,7 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark EasyTableView Initialization
+#pragma mark - EasyTableView Initialization
 
 - (void)setupHorizontalView {
 	CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
@@ -98,8 +97,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Utility Methods
+#pragma mark - Utility Methods
 
 - (void)borderIsSelected:(BOOL)selected forView:(UIView *)view {
 	UIImageView *borderView		= (UIImageView *)[view viewWithTag:BORDER_VIEW_TAG];
@@ -108,8 +106,7 @@
 }
 
 
-#pragma mark -
-#pragma mark EasyTableViewDelegate
+#pragma mark - EasyTableViewDelegate
 
 // These delegate methods support both example views - first delegate method creates the necessary views
 
@@ -162,8 +159,7 @@
 	bigLabel.text	= label.text;
 }
 
-#pragma mark -
-#pragma mark Optional EasyTableView delegate methods for section headers and footers
+#pragma mark - Optional EasyTableView delegate methods for section headers and footers
 
 #ifdef SHOW_MULTIPLE_SECTIONS
 

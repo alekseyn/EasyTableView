@@ -60,11 +60,7 @@ typedef enum {
 @end
 
 
-@interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource> {
-@private
-	CGFloat		_cellWidthOrHeight;
-	NSUInteger	_numItems;
-}
+@interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, unsafe_unretained) id<EasyTableViewDelegate> delegate;
 @property (nonatomic, readonly, unsafe_unretained) UITableView *tableView;

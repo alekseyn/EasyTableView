@@ -10,13 +10,6 @@
 
 @implementation ImageStore
 
-@synthesize operationQueue = _operationQueue;
-@synthesize delegate = _delegate;
-@synthesize titles = _titles;
-@synthesize urls = _urls;
-@synthesize imageCache = _imageCache;
-
-
 - (id)initWithDelegate:(id<ImageStoreDelegate>)aDelegate {
     self = [super init];
     if (self) {
@@ -82,8 +75,8 @@
 }
 
 - (UIImage *)imageAtIndex:(NSUInteger)index {
-	NSString *urlString = [self.urls objectAtIndex:index];
-	UIImage *image = [self.imageCache objectForKey:urlString];
+	NSString *urlString = self.urls[index];
+	UIImage *image = self.imageCache[urlString];
 	
 	if (!image) {
 		NSURL *url = [NSURL URLWithString:urlString];
@@ -94,7 +87,7 @@
 			
 			// Save the image in the image cache
 			if (newImage) {
-				[self.imageCache setObject:newImage forKey:urlString];
+				self.imageCache[urlString] = newImage;
 				
 				// Make sure to call delegate on main queue
 				[[NSOperationQueue mainQueue] addOperationWithBlock:^{
