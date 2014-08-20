@@ -30,7 +30,6 @@
 
 @implementation EasyTableView
 {
-	CGFloat		_cellWidthOrHeight;
 	NSUInteger	_numItems;
 }
 
@@ -39,9 +38,9 @@
 - (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCols ofWidth:(CGFloat)width {
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numCols;
-		_cellWidthOrHeight	= width;
 		self.orientation = EasyTableViewOrientationHorizontal;
         self.tableView = [UITableView new];
+        self.tableView.rowHeight = width;
 	}
     return self;
 }
@@ -50,9 +49,9 @@
 - (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numRows ofHeight:(CGFloat)height {
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numRows;
-		_cellWidthOrHeight	= height;
 		self.orientation = EasyTableViewOrientationVertical;
         self.tableView = [UITableView new];
+        self.tableView.rowHeight = height;
     }
     return self;
 }
@@ -234,10 +233,10 @@
 
 - (void)setCell:(UITableViewCell *)cell boundsForOrientation:(EasyTableViewOrientation)theOrientation {
 	if (theOrientation == EasyTableViewOrientationHorizontal) {
-		cell.bounds	= CGRectMake(0, 0, self.bounds.size.height, _cellWidthOrHeight);
+		cell.bounds	= CGRectMake(0, 0, self.bounds.size.height, self.tableView.rowHeight);
 	}
 	else {
-		cell.bounds	= CGRectMake(0, 0, self.bounds.size.width, _cellWidthOrHeight);
+		cell.bounds	= CGRectMake(0, 0, self.bounds.size.width, self.tableView.rowHeight);
 	}
 }
 
