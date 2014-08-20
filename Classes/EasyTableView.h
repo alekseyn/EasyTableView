@@ -37,10 +37,10 @@
 #define ROTATED_CELL_VIEW_TAG	801
 #define CELL_CONTENT_TAG		802
 
-typedef enum {
-	EasyTableViewOrientationVertical,
+typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
+    EasyTableViewOrientationVertical,
 	EasyTableViewOrientationHorizontal
-} EasyTableViewOrientation;
+};
 
 @class EasyTableView;
 
@@ -66,7 +66,7 @@ typedef enum {
 @property (nonatomic, readonly, weak) NSArray *visibleViews;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (nonatomic) UIColor *cellBackgroundColor;
-@property (nonatomic, readonly) EasyTableViewOrientation orientation;
+@property (nonatomic) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
 @property (nonatomic, assign) NSUInteger numberOfCells;
 

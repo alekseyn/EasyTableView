@@ -40,7 +40,7 @@
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numCols;
 		_cellWidthOrHeight	= width;
-		_orientation = EasyTableViewOrientationHorizontal;
+		self.orientation = EasyTableViewOrientationHorizontal;
         self.tableView = [UITableView new];
 	}
     return self;
@@ -51,7 +51,7 @@
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numRows;
 		_cellWidthOrHeight	= height;
-		_orientation = EasyTableViewOrientationVertical;
+		self.orientation = EasyTableViewOrientationVertical;
         self.tableView = [UITableView new];
     }
     return self;
@@ -63,20 +63,28 @@
 {
     _tableView = tableView;
     
-    if (_orientation == EasyTableViewOrientationHorizontal) {
-        int xOrigin	= (self.bounds.size.width - self.bounds.size.height)/2;
-        int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
-        _tableView.frame = CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
-        _tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
-    }
-    else
-    {
-        _tableView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-    }
+    self.orientation = _orientation;
+    
     _tableView.delegate			= self;
     _tableView.dataSource		= self;
     _tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:_tableView];
+}
+
+- (void)setOrientation:(EasyTableViewOrientation)orientation
+{
+    _orientation = orientation;
+    
+    if (_orientation == EasyTableViewOrientationHorizontal) {
+        int xOrigin	= (self.bounds.size.width - self.bounds.size.height)/2;
+        int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
+        self.tableView.frame = CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
+        self.tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
+    }
+    else
+    {
+        self.tableView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    }
 }
 
 - (NSArray *)visibleViews {
