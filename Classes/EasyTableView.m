@@ -125,7 +125,15 @@
 	return size;
 }
 
-#pragma mark - Multiple Sections
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if ([self.delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
+        return [self.delegate numberOfSectionsInEasyTableView:self];
+    }
+    return 1;
+}
+
+#pragma mark - Footers and Headers
 
 -(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
@@ -182,14 +190,6 @@
 		return [self viewToHoldSectionView:sectionView];
     }
     return nil;
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    if ([self.delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
-        return [self.delegate numberOfSectionsInEasyTableView:self];
-    }
-    return 1;
 }
 
 #pragma mark - Location and Paths
