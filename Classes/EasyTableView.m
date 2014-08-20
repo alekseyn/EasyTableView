@@ -125,15 +125,6 @@
 	return size;
 }
 
-
-- (void)setScrollFraction:(CGFloat)fraction animated:(BOOL)animated {
-	CGFloat maxScrollAmount = [self contentSize].width - self.bounds.size.width;
-
-	CGPoint offset = self.contentOffset;
-	offset.x = maxScrollAmount * fraction;
-	[self setContentOffset:offset animated:animated];
-}
-
 #pragma mark - Selection
 
 - (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
