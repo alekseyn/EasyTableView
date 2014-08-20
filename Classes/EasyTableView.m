@@ -127,14 +127,6 @@
 
 #pragma mark - Selection
 
-- (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
-	self.selectedIndexPath	= indexPath;
-	CGPoint defaultOffset	= CGPointMake(0, indexPath.row  *_cellWidthOrHeight);
-	
-	[self.tableView setContentOffset:defaultOffset animated:animated];
-}
-
-
 - (void)setSelectedIndexPath:(NSIndexPath *)indexPath {
 	if (![_selectedIndexPath isEqual:indexPath]) {
 		NSIndexPath *oldIndexPath = [_selectedIndexPath copy];
