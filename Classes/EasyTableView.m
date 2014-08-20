@@ -106,6 +106,14 @@
 	
 	return offset;
 }
+- (void)setContentOffset:(CGPoint)offset {
+	[self setContentOffset:offset animated:NO];
+}
+
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated {
+	CGPoint newOffset = (self.orientation == EasyTableViewOrientationHorizontal) ? CGPointMake(offset.y, offset.x) : offset;
+	[self.tableView setContentOffset:newOffset animated:animated];
+}
 
 
 - (CGSize)contentSize {
@@ -117,26 +125,6 @@
 	return size;
 }
 
-
-- (void)setContentOffset:(CGPoint)offset {
-	if (_orientation == EasyTableViewOrientationHorizontal)
-		self.tableView.contentOffset = CGPointMake(offset.y, offset.x);
-	else
-		self.tableView.contentOffset = offset;
-}
-
-
-- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated {
-	CGPoint newOffset;
-	
-	if (_orientation == EasyTableViewOrientationHorizontal) {
-		newOffset = CGPointMake(offset.y, offset.x);
-	}
-	else {
-		newOffset = offset;
-	}
-	[self.tableView setContentOffset:newOffset animated:animated];
-}
 
 - (void)setScrollFraction:(CGFloat)fraction animated:(BOOL)animated {
 	CGFloat maxScrollAmount = [self contentSize].width - self.bounds.size.width;
