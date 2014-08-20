@@ -9,8 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "EasyTableView.h"
 
-#define ANIMATION_DURATION	0.30
-
 @interface EasyTableViewCell : UITableViewCell
 
 @end
