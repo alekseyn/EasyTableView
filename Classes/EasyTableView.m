@@ -76,9 +76,6 @@
     _tableView.delegate			= self;
     _tableView.dataSource		= self;
     _tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.showsVerticalScrollIndicator	 = NO;
-    _tableView.showsHorizontalScrollIndicator = NO;
-    
     [self addSubview:_tableView];
 }
 
