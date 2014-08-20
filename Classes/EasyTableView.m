@@ -40,8 +40,8 @@
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numCols;
 		_cellWidthOrHeight	= width;
-		
-		[self createTableWithOrientation:EasyTableViewOrientationHorizontal];
+		_orientation = EasyTableViewOrientationHorizontal;
+        self.tableView = [UITableView new];
 	}
     return self;
 }
@@ -51,48 +51,36 @@
     if (self = [super initWithFrame:frame]) {
 		_numItems			= numRows;
 		_cellWidthOrHeight	= height;
-		
-		[self createTableWithOrientation:EasyTableViewOrientationVertical];
+		_orientation = EasyTableViewOrientationVertical;
+        self.tableView = [UITableView new];
     }
     return self;
 }
 
-
-- (void)createTableWithOrientation:(EasyTableViewOrientation)orientation {
-	// Save the orientation so that the table view cell knows how to set itself up
-	_orientation = orientation;
-	
-	UITableView *tableView;
-	if (orientation == EasyTableViewOrientationHorizontal) {
-		int xOrigin	= (self.bounds.size.width - self.bounds.size.height)/2;
-		int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
-		tableView	= [[UITableView alloc] initWithFrame:CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width)];
-	}
-	else
-		tableView	= [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-	
-	tableView.tag				= TABLEVIEW_TAG;
-	tableView.delegate			= self;
-	tableView.dataSource		= self;
-	tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	
-	// Rotate the tableView 90 degrees so that it is horizontal
-	if (orientation == EasyTableViewOrientationHorizontal)
-		tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
-	
-	tableView.showsVerticalScrollIndicator	 = NO;
-	tableView.showsHorizontalScrollIndicator = NO;
-	
-	[self addSubview:tableView];
-}
-
-
 #pragma mark - Properties
 
-- (UITableView *)tableView {
-	return (UITableView *)[self viewWithTag:TABLEVIEW_TAG];
+- (void)setTableView:(UITableView *)tableView
+{
+    _tableView = tableView;
+    
+    if (_orientation == EasyTableViewOrientationHorizontal) {
+        int xOrigin	= (self.bounds.size.width - self.bounds.size.height)/2;
+        int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
+        _tableView.frame = CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
+        _tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
+    }
+    else
+    {
+        _tableView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    }
+    _tableView.delegate			= self;
+    _tableView.dataSource		= self;
+    _tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _tableView.showsVerticalScrollIndicator	 = NO;
+    _tableView.showsHorizontalScrollIndicator = NO;
+    
+    [self addSubview:_tableView];
 }
-
 
 - (NSArray *)visibleViews {
 	NSArray *visibleCells = [self.tableView visibleCells];

@@ -34,7 +34,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define TABLEVIEW_TAG			800
 #define ROTATED_CELL_VIEW_TAG	801
 #define CELL_CONTENT_TAG		802
 
@@ -63,7 +62,7 @@ typedef enum {
 @interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
-@property (nonatomic, readonly, weak) UITableView *tableView;
+@property (nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, readonly, weak) NSArray *visibleViews;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (nonatomic) UIColor *cellBackgroundColor;
