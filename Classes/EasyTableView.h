@@ -49,8 +49,6 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 - (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath*)indexPath;
 @optional
 - (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
-- (void)easyTableView:(EasyTableView *)easyTableView scrolledToFraction:(CGFloat)fraction;
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
 - (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
@@ -71,7 +69,6 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 
 - (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCells ofWidth:(CGFloat)cellWidth;
 - (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numCells ofHeight:(CGFloat)cellHeight;
-- (CGPoint)offsetForView:(UIView *)cell;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
 - (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath*)indexPathForView:(UIView *)cell;

@@ -215,14 +215,6 @@
 	return indexPath;
 }
 
-- (CGPoint)offsetForView:(UIView *)view {
-	// Get the location of the cell
-	CGPoint cellOrigin = [view convertPoint:view.frame.origin toView:self];
-	
-	// No need to compensate for orientation since all values are already adjusted for orientation
-	return cellOrigin;
-}
-
 #pragma mark - TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -237,21 +229,6 @@
     }
     return tableView.rowHeight;
 }
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	if ([self.delegate respondsToSelector:@selector(easyTableView:scrolledToOffset:)])
-		[self.delegate easyTableView:self scrolledToOffset:self.contentOffset];
-	
-	CGFloat amountScrolled	= self.contentOffset.x;
-	CGFloat maxScrollAmount = [self contentSize].width - self.bounds.size.width;
-	
-	if (amountScrolled > maxScrollAmount) amountScrolled = maxScrollAmount;
-	if (amountScrolled < 0) amountScrolled = 0;
-	
-	if ([self.delegate respondsToSelector:@selector(easyTableView:scrolledToFraction:)])
-		[self.delegate easyTableView:self scrolledToFraction:amountScrolled/maxScrollAmount];
-}
-
 
 #pragma mark - TableViewDataSource
 
