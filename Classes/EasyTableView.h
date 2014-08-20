@@ -62,9 +62,9 @@ typedef enum {
 
 @interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, unsafe_unretained) id<EasyTableViewDelegate> delegate;
-@property (nonatomic, readonly, unsafe_unretained) UITableView *tableView;
-@property (nonatomic, readonly, unsafe_unretained) NSArray *visibleViews;
+@property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
+@property (nonatomic, readonly, weak) UITableView *tableView;
+@property (nonatomic, readonly, weak) NSArray *visibleViews;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic, readonly) EasyTableViewOrientation orientation;
