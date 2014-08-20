@@ -235,7 +235,7 @@
     if ([self.delegate respondsToSelector:@selector(easyTableView:heightOrWidthForCellAtIndexPath:)]) {
         return [self.delegate easyTableView:self heightOrWidthForCellAtIndexPath:indexPath];
     }
-    return _cellWidthOrHeight;
+    return tableView.rowHeight;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
