@@ -29,15 +29,11 @@
 
 
 @implementation EasyTableView
-{
-	NSUInteger	_numItems;
-}
 
 #pragma mark - Initialization
 
-- (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCols ofWidth:(CGFloat)width {
+- (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)width {
     if (self = [super initWithFrame:frame]) {
-		_numItems			= numCols;
 		self.orientation = EasyTableViewOrientationHorizontal;
         self.tableView = [UITableView new];
         self.tableView.rowHeight = width;
@@ -46,9 +42,8 @@
 }
 
 
-- (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numRows ofHeight:(CGFloat)height {
+- (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)height {
     if (self = [super initWithFrame:frame]) {
-		_numItems			= numRows;
 		self.orientation = EasyTableViewOrientationVertical;
         self.tableView = [UITableView new];
         self.tableView.rowHeight = height;
@@ -231,6 +226,10 @@
 
 #pragma mark - TableViewDataSource
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [self.delegate easyTableView:self numberOfRowsInSection:section];
+}
+
 - (void)setCell:(UITableViewCell *)cell boundsForOrientation:(EasyTableViewOrientation)theOrientation {
 	if (theOrientation == EasyTableViewOrientationHorizontal) {
 		cell.bounds	= CGRectMake(0, 0, self.bounds.size.height, self.tableView.rowHeight);
@@ -284,21 +283,6 @@
 	
 	[self setDataForRotatedView:[cell.contentView viewWithTag:ROTATED_CELL_VIEW_TAG] forIndexPath:indexPath];
     return cell;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSUInteger numOfItems = _numItems;
-	
-	if ([self.delegate respondsToSelector:@selector(numberOfCellsForEasyTableView:inSection:)]) {
-		numOfItems = [self.delegate numberOfCellsForEasyTableView:self inSection:section];
-		
-		// Animate any changes in the number of items
-		[tableView beginUpdates];
-		[tableView endUpdates];
-	}
-	
-    return numOfItems;
 }
 
 #pragma mark - Rotation

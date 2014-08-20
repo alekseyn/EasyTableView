@@ -59,7 +59,7 @@
 
 - (void)setupHorizontalView {
 	CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:NUM_OF_CELLS ofWidth:VERTICAL_TABLEVIEW_WIDTH];
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect ofWidth:VERTICAL_TABLEVIEW_WIDTH];
 	self.horizontalView = view;
 	
 	self.horizontalView.delegate						= self;
@@ -75,7 +75,7 @@
 
 - (void)setupVerticalView {
 	CGRect frameRect	= CGRectMake(PORTRAIT_WIDTH - VERTICAL_TABLEVIEW_WIDTH, 0, VERTICAL_TABLEVIEW_WIDTH, LANDSCAPE_HEIGHT);
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:NUM_OF_CELLS ofHeight:HORIZONTAL_TABLEVIEW_HEIGHT];
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect ofHeight:HORIZONTAL_TABLEVIEW_HEIGHT];
 	self.verticalView	= view;
 	
 	self.verticalView.delegate					= self;
@@ -174,7 +174,7 @@
 }
 
 // Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
--(NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section {
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
     return NUM_OF_CELLS;
 }
 
