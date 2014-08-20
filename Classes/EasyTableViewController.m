@@ -28,6 +28,10 @@
 #endif
 
 @implementation EasyTableViewController
+{
+    NSIndexPath * _selectedVerticalIndexPath;
+    NSIndexPath * _selectedHorizontalIndexPath;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -134,19 +138,29 @@
 	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
 	
 	// selectedIndexPath can be nil so we need to test for that condition
-	BOOL isSelected = (easyTableView.selectedIndexPath) ? ([easyTableView.selectedIndexPath compare:indexPath] == NSOrderedSame) : NO;
+    NSIndexPath * selectedIndexPath = (easyTableView == self.verticalView) ? _selectedVerticalIndexPath : _selectedHorizontalIndexPath;
+	BOOL isSelected = selectedIndexPath ? ([selectedIndexPath compare:indexPath] == NSOrderedSame) : NO;
 	[self borderIsSelected:isSelected forView:view];		
 }
 
 // Optional delegate to track the selection of a particular cell
 
-- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView {
-	[self borderIsSelected:YES forView:selectedView];		
+- (UIView *)viewForIndexPath:(NSIndexPath *)indexPath easyTableView:(EasyTableView *)tableView
+{
+    UITableViewCell * cell	= [tableView.tableView cellForRowAtIndexPath:indexPath];
+    return [cell viewWithTag:CELL_CONTENT_TAG];
+}
+
+- (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *__strong* selectedIndexPath = (tableView == self.verticalView) ? &_selectedVerticalIndexPath : &_selectedHorizontalIndexPath;
+    
+    if (selectedIndexPath)
+		[self borderIsSelected:NO forView:[self viewForIndexPath:*selectedIndexPath easyTableView:tableView]];
+    
+    *selectedIndexPath = indexPath;
+    UILabel * label	= (UILabel *)[self viewForIndexPath:*selectedIndexPath easyTableView:tableView];
+    [self borderIsSelected:YES forView:label];
 	
-	if (deselectedView) 
-		[self borderIsSelected:NO forView:deselectedView];
-	
-	UILabel *label	= (UILabel *)selectedView;
 	self.bigLabel.text	= label.text;
 }
 

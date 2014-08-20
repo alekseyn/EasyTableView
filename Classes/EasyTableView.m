@@ -125,29 +125,6 @@
 	return size;
 }
 
-#pragma mark - Selection
-
-- (void)setSelectedIndexPath:(NSIndexPath *)indexPath {
-	if (![_selectedIndexPath isEqual:indexPath]) {
-		NSIndexPath *oldIndexPath = [_selectedIndexPath copy];
-		
-		_selectedIndexPath = indexPath;
-		
-		UITableViewCell *deselectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:oldIndexPath];
-		UITableViewCell *selectedCell	= (UITableViewCell *)[self.tableView cellForRowAtIndexPath:_selectedIndexPath];
-		
-		if ([self.delegate respondsToSelector:@selector(easyTableView:selectedView:atIndexPath:deselectedView:)]) {
-			UIView *selectedView = [selectedCell viewWithTag:CELL_CONTENT_TAG];
-			UIView *deselectedView = [deselectedCell viewWithTag:CELL_CONTENT_TAG];
-			
-			[self.delegate easyTableView:self
-                            selectedView:selectedView
-                             atIndexPath:_selectedIndexPath
-                          deselectedView:deselectedView];
-		}
-	}
-}
-
 #pragma mark - Multiple Sections
 
 -(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
@@ -249,10 +226,10 @@
 #pragma mark - TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:NO];
-	[self setSelectedIndexPath:indexPath];
+	if ([self.delegate respondsToSelector:@selector(easyTableView:didSelectRowAtIndexPath:)]) {
+        [self.delegate easyTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(easyTableView:heightOrWidthForCellAtIndexPath:)]) {
@@ -260,16 +237,6 @@
     }
     return _cellWidthOrHeight;
 }
-
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	// Don't allow the currently selected cell to be selectable
-	if ([_selectedIndexPath isEqual:indexPath]) {
-		return nil;
-	}
-	return indexPath;
-}
-
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if ([self.delegate respondsToSelector:@selector(easyTableView:scrolledToOffset:)])

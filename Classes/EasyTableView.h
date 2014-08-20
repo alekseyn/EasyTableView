@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 - (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
 - (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath*)indexPath;
 @optional
-- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView;
+- (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToFraction:(CGFloat)fraction;
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
@@ -64,7 +64,6 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 @property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
 @property (nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, readonly, weak) NSArray *visibleViews;
-@property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
