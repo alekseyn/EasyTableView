@@ -74,6 +74,7 @@
         int yOrigin	= (self.bounds.size.height - self.bounds.size.width)/2;
         self.tableView.frame = CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
         self.tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, self.bounds.size.height - 7.0);
     }
     else
     {
