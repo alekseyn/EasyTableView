@@ -104,43 +104,52 @@
 #pragma mark - EasyTableViewDelegate
 
 // These delegate methods support both example views - first delegate method creates the necessary views
-
-- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect {
-	CGRect labelRect		= CGRectMake(10, 10, rect.size.width-20, rect.size.height-20);
-	UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
+- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"EasyTableViewCell";
+    UITableViewCell *cell = [easyTableView.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UILabel *label;
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        CGRect labelRect		= CGRectMake(10, 10, cell.contentView.frame.size.width-20, cell.contentView.frame.size.height-20);
+        label        			= [[UILabel alloc] initWithFrame:labelRect];
+        label.autoresizingMask  = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-	label.textAlignment		= UITextAlignmentCenter;
+        label.textAlignment		= UITextAlignmentCenter;
 #else
-	label.textAlignment		= NSTextAlignmentCenter;
+        label.textAlignment		= NSTextAlignmentCenter;
 #endif
-	label.textColor			= [UIColor whiteColor];
-	label.font				= [UIFont boldSystemFontOfSize:60];
-	
-	// Use a different color for the two different examples
-	if (easyTableView == self.horizontalView)
-		label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
-	else
-		label.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3];
-	
-	UIImageView *borderView		= [[UIImageView alloc] initWithFrame:label.bounds];
-	borderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	borderView.tag				= BORDER_VIEW_TAG;
-	
-	[label addSubview:borderView];
-		 
-	return label;
-}
+        label.textColor			= [UIColor whiteColor];
+        label.font				= [UIFont boldSystemFontOfSize:60];
+        
+        // Use a different color for the two different examples
+        if (easyTableView == self.horizontalView)
+            label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
+        else
+            label.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3];
+        
+        UIImageView *borderView		= [[UIImageView alloc] initWithFrame:label.bounds];
+        borderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        borderView.tag				= BORDER_VIEW_TAG;
+        
+        [label addSubview:borderView];
 
-// Second delegate populates the views with data from a data source
-
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
-	UILabel *label	= (UILabel *)view;
-	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
+        [cell.contentView addSubview:label];
+    }
+    else {
+        label = cell.contentView.subviews[0];
+    }
+    
+    // Second delegate populates the views with data from a data source
+    label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
 	
 	// selectedIndexPath can be nil so we need to test for that condition
     NSIndexPath * selectedIndexPath = (easyTableView == self.verticalView) ? _selectedVerticalIndexPath : _selectedHorizontalIndexPath;
 	BOOL isSelected = selectedIndexPath ? ([selectedIndexPath compare:indexPath] == NSOrderedSame) : NO;
-	[self borderIsSelected:isSelected forView:view];		
+	[self borderIsSelected:isSelected forView:label];
+    
+    return cell;
 }
 
 // Optional delegate to track the selection of a particular cell
@@ -148,7 +157,7 @@
 - (UIView *)viewForIndexPath:(NSIndexPath *)indexPath easyTableView:(EasyTableView *)tableView
 {
     UITableViewCell * cell	= [tableView.tableView cellForRowAtIndexPath:indexPath];
-    return [cell viewWithTag:CELL_CONTENT_TAG];
+    return cell.contentView.subviews[0];
 }
 
 - (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

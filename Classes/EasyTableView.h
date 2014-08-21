@@ -25,17 +25,11 @@
  
  KNOWN LIMITATIONS:
  
- This implementation currently only supports one section. The view relies
- on three reserved view tags, 800 - 802.
- 
  A horizontal EasyTableView will correctly auto-resize it's overall length only.
  A horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
  */
 
 #import <UIKit/UIKit.h>
-
-#define ROTATED_CELL_VIEW_TAG	801
-#define CELL_CONTENT_TAG		802
 
 typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
     EasyTableViewOrientationVertical,
@@ -45,12 +39,11 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 @class EasyTableView;
 
 @protocol EasyTableViewDelegate <NSObject>
-- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath*)indexPath;
 - (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 @optional
-- (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
+- (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
 - (CGFloat)easyTableView:(EasyTableView *)easyTableView heightOrWidthForCellAtIndexPath:(NSIndexPath *)indexPath;
@@ -61,7 +54,6 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 
 @property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
 @property (nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, readonly, weak) NSArray *visibleViews;
 @property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
@@ -70,8 +62,5 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 - (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
 - (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
-- (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath*)indexPathForView:(UIView *)cell;
-- (void)reloadData;
 
 @end
