@@ -46,6 +46,13 @@
     [self addSubview:_tableView];
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    super.frame = frame;
+    
+    self.orientation = _orientation;
+}
+
 - (void)setOrientation:(EasyTableViewOrientation)orientation
 {
     _orientation = orientation;
