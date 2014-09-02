@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 
 @interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, weak) id<EasyTableViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<EasyTableViewDelegate> delegate;
 @property (nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIColor *cellBackgroundColor;
 @property (nonatomic) EasyTableViewOrientation orientation;
