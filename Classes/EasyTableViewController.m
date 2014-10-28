@@ -142,7 +142,7 @@
     }
     
     // Second delegate populates the views with data from a data source
-    label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
+    label.text		= [NSString stringWithFormat:@"%@", @(indexPath.row)];
 	
 	// selectedIndexPath can be nil so we need to test for that condition
     NSIndexPath * selectedIndexPath = (easyTableView == self.verticalView) ? _selectedVerticalIndexPath : _selectedHorizontalIndexPath;
