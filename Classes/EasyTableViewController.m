@@ -35,21 +35,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[self setupVerticalView];
+	
+    [self setupVerticalView];
 	[self setupHorizontalView];
+    
+    self.ibView.orientation = EasyTableViewOrientationHorizontal;
 }
-
-
-- (void)viewDidUnload {
-	[super viewDidUnload];	
-	self.bigLabel = nil;
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
@@ -62,12 +53,12 @@
 	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect ofWidth:VERTICAL_TABLEVIEW_WIDTH];
 	self.horizontalView = view;
 	
-	self.horizontalView.delegate						= self;
+	self.horizontalView.delegate					= self;
 	self.horizontalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
 	self.horizontalView.tableView.allowsSelection	= YES;
-	self.horizontalView.tableView.separatorColor		= [UIColor darkGrayColor];
+	self.horizontalView.tableView.separatorColor	= [UIColor darkGrayColor];
 	self.horizontalView.cellBackgroundColor			= [UIColor darkGrayColor];
-	self.horizontalView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+	self.horizontalView.autoresizingMask			= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 	
 	[self.view addSubview:self.horizontalView];
 }
@@ -86,7 +77,7 @@
 	self.verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	// Allow verticalView to scroll up and completely clear the horizontalView
-	self.verticalView.tableView.contentInset		= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
+	self.verticalView.tableView.contentInset	= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
 	
 	[self.view addSubview:self.verticalView];
 }
@@ -198,12 +189,12 @@
 	label.textAlignment		= NSTextAlignmentCenter;
 #endif
    
-	if (easyTableView == self.horizontalView) {
-		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
-	}
 	if (easyTableView == self.verticalView) {
 		label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, 20);
 	}
+    else {
+        label.frame = CGRectMake(0, 0, VERTICAL_TABLEVIEW_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
+    }
 
     switch (section) {
         case 0:

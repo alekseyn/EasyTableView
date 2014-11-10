@@ -40,6 +40,23 @@
                                     <segue destination="v84-1t-EI6" kind="modal" modalTransitionStyle="flipHorizontal" id="XuE-Hr-wAB"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="LLA-Hu-wM9" customClass="EasyTableView">
+                                <rect key="frame" x="0.0" y="48" width="588" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="180" sectionFooterHeight="180" id="xef-m1-oPj">
+                                        <rect key="frame" x="0.0" y="0.0" width="588" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <sections/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0wV-gc-N9d" id="MBa-Jt-hUr"/>
+                                    <outlet property="tableView" destination="xef-m1-oPj" id="uHg-oU-aGX"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -49,6 +66,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="bigLabel" destination="cYF-mh-lyk" id="iuX-so-Rgx"/>
+                        <outlet property="ibView" destination="LLA-Hu-wM9" id="7vd-0Z-TC4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Re-4g-hkg" userLabel="First Responder" sceneMemberID="firstResponder"/>

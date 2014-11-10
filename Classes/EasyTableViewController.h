@@ -12,7 +12,8 @@
 
 @interface EasyTableViewController : UIViewController <EasyTableViewDelegate>
 
-@property (nonatomic) IBOutlet UILabel *bigLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bigLabel;
+@property (nonatomic, weak) IBOutlet EasyTableView *ibView;
 @property (nonatomic) EasyTableView *verticalView;
 @property (nonatomic) EasyTableView *horizontalView;
 
