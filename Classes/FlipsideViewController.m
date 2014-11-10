@@ -69,7 +69,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.contentView.clipsToBounds = YES;
+        cell.clipsToBounds = YES;
         
         // Create a container view for an EasyTableView cell
         UIView *container = [[UIView alloc] initWithFrame:cell.bounds];
@@ -145,7 +145,7 @@
 #pragma mark - Actions
 
 - (IBAction)done:(id)sender {
-    [self.delegate flipsideViewControllerDidFinish:self];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

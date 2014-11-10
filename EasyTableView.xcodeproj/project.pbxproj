@@ -12,8 +12,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		2899E5220DE3E06400AC0155 /* EasyTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* EasyTableViewController.xib */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		5BAB2C5411BA3B1B00C5272F /* MedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */; };
 		5BAB2C5511BA3B1B00C5272F /* SmallAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */; };
 		5BAB2C6211BA3B2500C5272F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5711BA3B2500C5272F /* background.png */; };
@@ -21,9 +19,9 @@
 		5BAB2C6E11BA3B6300C5272F /* image_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C6D11BA3B6300C5272F /* image_border.png */; };
 		5BAB2C9E11BA411D00C5272F /* EasyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAB2C9D11BA411D00C5272F /* EasyTableViewController.m */; };
 		5BE1B60414D7C61D00A1F8F5 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1B60314D7C61D00A1F8F5 /* FlipsideViewController.m */; };
-		5BE1B60614D7C62F00A1F8F5 /* FlipsideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE1B60514D7C62F00A1F8F5 /* FlipsideViewController.xib */; };
 		5BE1B60914D7C82600A1F8F5 /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1B60814D7C82600A1F8F5 /* ImageStore.m */; };
 		D53E2A24125FC4DC0032086B /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D53E2A23125FC4DC0032086B /* EasyTableView.m */; };
+		E5F5EB321A109860003A0F49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5F5EB311A109860003A0F49 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,26 +31,24 @@
 		1D6058910D05DD3D006BFB54 /* EasyTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* EasyTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EasyTableViewController.xib; sourceTree = "<group>"; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EasyTableView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView_Prefix.pch; sourceTree = "<group>"; };
 		5B2CD3CB11BAA38F0072948D /* AppIcon.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppIcon.pxm; sourceTree = "<group>"; };
 		5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MedAppIcon.png; sourceTree = "<group>"; };
 		5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SmallAppIcon.png; sourceTree = "<group>"; };
-		5BAB2C5711BA3B2500C5272F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		5BAB2C6111BA3B2500C5272F /* selected_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_border.png; sourceTree = "<group>"; };
-		5BAB2C6D11BA3B6300C5272F /* image_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_border.png; sourceTree = "<group>"; };
+		5BAB2C5711BA3B2500C5272F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/background.png; sourceTree = "<group>"; };
+		5BAB2C6111BA3B2500C5272F /* selected_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selected_border.png; path = Images/selected_border.png; sourceTree = "<group>"; };
+		5BAB2C6D11BA3B6300C5272F /* image_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_border.png; path = Images/image_border.png; sourceTree = "<group>"; };
 		5BAB2C9C11BA411D00C5272F /* EasyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableViewController.h; sourceTree = "<group>"; };
 		5BAB2C9D11BA411D00C5272F /* EasyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableViewController.m; sourceTree = "<group>"; };
 		5BE1B60214D7C61D00A1F8F5 /* FlipsideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
 		5BE1B60314D7C61D00A1F8F5 /* FlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
-		5BE1B60514D7C62F00A1F8F5 /* FlipsideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlipsideViewController.xib; sourceTree = "<group>"; };
 		5BE1B60714D7C82600A1F8F5 /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		5BE1B60814D7C82600A1F8F5 /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* EasyTableView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "EasyTableView-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D53E2A22125FC4DC0032086B /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
 		D53E2A23125FC4DC0032086B /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
+		E5F5EB311A109860003A0F49 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +78,7 @@
 				5BE1B60314D7C61D00A1F8F5 /* FlipsideViewController.m */,
 				5BE1B60714D7C82600A1F8F5 /* ImageStore.h */,
 				5BE1B60814D7C82600A1F8F5 /* ImageStore.m */,
+				E5F5EB311A109860003A0F49 /* Main.storyboard */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -99,7 +96,7 @@
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97317FDCFA39411CA2CEA /* Images */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				5B2CD3CA11BAA37D0072948D /* Other */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -110,24 +107,23 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8D1107310486CEB800E47090 /* EasyTableView-Info.plist */,
 				32CA4F630368D1EE00C91783 /* EasyTableView_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
+		29B97317FDCFA39411CA2CEA /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5BAB2C5611BA3B2500C5272F /* Images */,
-				2899E5210DE3E06400AC0155 /* EasyTableViewController.xib */,
-				5BE1B60514D7C62F00A1F8F5 /* FlipsideViewController.xib */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				8D1107310486CEB800E47090 /* EasyTableView-Info.plist */,
+				5BAB2C6D11BA3B6300C5272F /* image_border.png */,
+				5BAB2C6111BA3B2500C5272F /* selected_border.png */,
+				5BAB2C5711BA3B2500C5272F /* background.png */,
 				5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */,
 				5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */,
 			);
-			name = Resources;
+			name = Images;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -146,16 +142,6 @@
 				5B2CD3CB11BAA38F0072948D /* AppIcon.pxm */,
 			);
 			name = Other;
-			sourceTree = "<group>";
-		};
-		5BAB2C5611BA3B2500C5272F /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				5BAB2C6D11BA3B6300C5272F /* image_border.png */,
-				5BAB2C6111BA3B2500C5272F /* selected_border.png */,
-				5BAB2C5711BA3B2500C5272F /* background.png */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,14 +196,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				2899E5220DE3E06400AC0155 /* EasyTableViewController.xib in Resources */,
 				5BAB2C5411BA3B1B00C5272F /* MedAppIcon.png in Resources */,
 				5BAB2C5511BA3B1B00C5272F /* SmallAppIcon.png in Resources */,
 				5BAB2C6211BA3B2500C5272F /* background.png in Resources */,
 				5BAB2C6C11BA3B2500C5272F /* selected_border.png in Resources */,
+				E5F5EB321A109860003A0F49 /* Main.storyboard in Resources */,
 				5BAB2C6E11BA3B6300C5272F /* image_border.png in Resources */,
-				5BE1B60614D7C62F00A1F8F5 /* FlipsideViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
