@@ -57,16 +57,18 @@
 {
     _orientation = orientation;
     
+    if (!self.tableView)
+        return;
+    
+    self.tableView.transform = CGAffineTransformIdentity;
+    self.tableView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    
     if (_orientation == EasyTableViewOrientationHorizontal) {
         int xOrigin	= (self.bounds.size.width - self.bounds.size.height) / 2.0;
         int yOrigin	= (self.bounds.size.height - self.bounds.size.width) / 2.0;
         self.tableView.frame = CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
         self.tableView.transform = CGAffineTransformMakeRotation(-M_PI/2);
         self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, self.bounds.size.height - 7.0);
-    }
-    else
-    {
-        self.tableView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
     }
 }
 
