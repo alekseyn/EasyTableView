@@ -27,16 +27,7 @@
 	#define NUM_OF_CELLS			21
 #endif
 
-@interface EasyTableViewController (MyPrivateMethods)
-- (void)setupHorizontalView;
-- (void)setupVerticalView;
-@end
-
 @implementation EasyTableViewController
-
-@synthesize bigLabel, verticalView, horizontalView;
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,22 +51,21 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark EasyTableView Initialization
+#pragma mark - EasyTableView Initialization
 
 - (void)setupHorizontalView {
 	CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
 	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:NUM_OF_CELLS ofWidth:VERTICAL_TABLEVIEW_WIDTH];
 	self.horizontalView = view;
 	
-	horizontalView.delegate						= self;
-	horizontalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
-	horizontalView.tableView.allowsSelection	= YES;
-	horizontalView.tableView.separatorColor		= [UIColor darkGrayColor];
-	horizontalView.cellBackgroundColor			= [UIColor darkGrayColor];
-	horizontalView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+	self.horizontalView.delegate						= self;
+	self.horizontalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
+	self.horizontalView.tableView.allowsSelection	= YES;
+	self.horizontalView.tableView.separatorColor		= [UIColor darkGrayColor];
+	self.horizontalView.cellBackgroundColor			= [UIColor darkGrayColor];
+	self.horizontalView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 	
-	[self.view addSubview:horizontalView];
+	[self.view addSubview:self.horizontalView];
 }
 
 
@@ -84,22 +74,21 @@
 	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:NUM_OF_CELLS ofHeight:HORIZONTAL_TABLEVIEW_HEIGHT];
 	self.verticalView	= view;
 	
-	verticalView.delegate					= self;
-	verticalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
-	verticalView.tableView.allowsSelection	= YES;
-	verticalView.tableView.separatorColor	= [[UIColor blackColor] colorWithAlphaComponent:0.1];
-	verticalView.cellBackgroundColor		= [[UIColor blackColor] colorWithAlphaComponent:0.1];
-	verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.verticalView.delegate					= self;
+	self.verticalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
+	self.verticalView.tableView.allowsSelection	= YES;
+	self.verticalView.tableView.separatorColor	= [[UIColor blackColor] colorWithAlphaComponent:0.1];
+	self.verticalView.cellBackgroundColor		= [[UIColor blackColor] colorWithAlphaComponent:0.1];
+	self.verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	// Allow verticalView to scroll up and completely clear the horizontalView
-	verticalView.tableView.contentInset		= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
+	self.verticalView.tableView.contentInset		= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
 	
-	[self.view addSubview:verticalView];
+	[self.view addSubview:self.verticalView];
 }
 
 
-#pragma mark -
-#pragma mark Utility Methods
+#pragma mark - Utility Methods
 
 - (void)borderIsSelected:(BOOL)selected forView:(UIView *)view {
 	UIImageView *borderView		= (UIImageView *)[view viewWithTag:BORDER_VIEW_TAG];
@@ -108,8 +97,7 @@
 }
 
 
-#pragma mark -
-#pragma mark EasyTableViewDelegate
+#pragma mark - EasyTableViewDelegate
 
 // These delegate methods support both example views - first delegate method creates the necessary views
 
@@ -125,7 +113,7 @@
 	label.font				= [UIFont boldSystemFontOfSize:60];
 	
 	// Use a different color for the two different examples
-	if (easyTableView == horizontalView)
+	if (easyTableView == self.horizontalView)
 		label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
 	else
 		label.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3];
@@ -159,11 +147,10 @@
 		[self borderIsSelected:NO forView:deselectedView];
 	
 	UILabel *label	= (UILabel *)selectedView;
-	bigLabel.text	= label.text;
+	self.bigLabel.text	= label.text;
 }
 
-#pragma mark -
-#pragma mark Optional EasyTableView delegate methods for section headers and footers
+#pragma mark - Optional EasyTableView delegate methods for section headers and footers
 
 #ifdef SHOW_MULTIPLE_SECTIONS
 

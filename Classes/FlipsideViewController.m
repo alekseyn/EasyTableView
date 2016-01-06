@@ -51,8 +51,7 @@
 	return YES;
 }
 
-#pragma mark -
-#pragma mark EasyTableView Initialization
+#pragma mark - EasyTableView Initialization
 
 - (void)setupEasyTableViewWithNumCells:(NSUInteger)count {
 	CGRect frameRect	= CGRectMake(0, 44, self.view.bounds.size.width, TABLEVIEW_HEIGHT);
@@ -104,7 +103,7 @@
 - (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
 	// Set the image title for the given index
 	UILabel *label = (UILabel *)[view viewWithTag:LABEL_TAG];
-	label.text = [self.imageStore.titles objectAtIndex:indexPath.row];
+	label.text = self.imageStore.titles[indexPath.row];
 	
 	// Set the image for the given index
 	UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
