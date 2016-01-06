@@ -389,6 +389,8 @@
 		rotatedView.tag					= ROTATED_CELL_VIEW_TAG;
 		rotatedView.center				= cell.contentView.center;
 		rotatedView.backgroundColor		= self.cellBackgroundColor;
+        
+        cell.backgroundColor = self.cellBackgroundColor;
 		
 		if (_orientation == EasyTableViewOrientationHorizontal) {
 			rotatedView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
