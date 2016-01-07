@@ -10,13 +10,10 @@
 #import "EasyTableViewController.h"
 #import "EasyTableView.h"
 
-#define SHOW_MULTIPLE_SECTIONS		1		// If commented out, multiple sections with header and footer views are not shown
-#define SHOW_VERTICAL_TABLEVIEW		NO		// EasyTableView API works for both horizontal and vertical placement
-#define SHOW_HORIZONTAL_TABLEVIEW	YES
+//#define SHOW_MULTIPLE_SECTIONS		1		// If commented out, multiple sections with header and footer views are NOT shown
 
 #define HORIZONTAL_TABLEVIEW_HEIGHT	140
 #define VERTICAL_TABLEVIEW_WIDTH	180
-#define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
 #define CELL_BACKGROUND_COLOR		[[UIColor greenColor] colorWithAlphaComponent:0.15]
 
 #define BORDER_VIEW_TAG				10
@@ -36,25 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	if (SHOW_HORIZONTAL_TABLEVIEW) {
-		[self setupHorizontalView];
-	}
-	
-	if (SHOW_VERTICAL_TABLEVIEW) {
-		// Shows how the same EasyTableView can be used vertically as well
-		[self setupVerticalView];
-	}
-	else {
-		// Stretch the storyboard EasyTableView to full width since we have the full screen now
-		
-		CGRect easyTableViewFrame		= self.storyboardView.frame;
-		easyTableViewFrame.size.width	= [UIScreen mainScreen].bounds.size.width;
-		
-		self.storyboardView.frame = easyTableViewFrame;
-	}
-	
-	// This must be set because initWithFrame for EasyTableView cannot be called when loaded from a storyboard
-    self.storyboardView.orientation = EasyTableViewOrientationHorizontal;
+	[self setupVerticalView];
+	[self setupHorizontalView];
 }
 
 #pragma mark - EasyTableView Initialization
@@ -67,7 +47,7 @@
 	self.horizontalView = view;
 	
 	self.horizontalView.delegate					= self;
-	self.horizontalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
+	self.horizontalView.tableView.backgroundColor	= [UIColor clearColor];
 	self.horizontalView.tableView.allowsSelection	= YES;
 	self.horizontalView.tableView.separatorColor	= [UIColor darkGrayColor];
 	self.horizontalView.autoresizingMask			= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
@@ -79,18 +59,15 @@
 - (void)setupVerticalView {
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
 
-	CGRect frameRect	= CGRectMake(screenSize.width - VERTICAL_TABLEVIEW_WIDTH, 0, VERTICAL_TABLEVIEW_WIDTH, screenSize.height);
+	CGRect frameRect	= CGRectMake(screenSize.width - VERTICAL_TABLEVIEW_WIDTH, 0, VERTICAL_TABLEVIEW_WIDTH, screenSize.height - HORIZONTAL_TABLEVIEW_HEIGHT);
 	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect ofHeight:HORIZONTAL_TABLEVIEW_HEIGHT];
 	self.verticalView	= view;
 	
 	self.verticalView.delegate					= self;
-	self.verticalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
+	self.verticalView.tableView.backgroundColor	= [UIColor clearColor];
 	self.verticalView.tableView.allowsSelection	= YES;
 	self.verticalView.tableView.separatorColor	= [[UIColor blackColor] colorWithAlphaComponent:0.1];
 	self.verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	
-	// Allow verticalView to scroll up and completely clear the horizontalView
-	self.verticalView.tableView.contentInset	= UIEdgeInsetsMake(0, 0, HORIZONTAL_TABLEVIEW_HEIGHT, 0);
 	
 	[self.view addSubview:self.verticalView];
 }
@@ -120,7 +97,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		cell.contentView.backgroundColor = CELL_BACKGROUND_COLOR;
-		cell.backgroundColor = TABLE_BACKGROUND_COLOR;
+		cell.backgroundColor = [UIColor clearColor];
 		
         CGRect labelRect		= CGRectMake(10, 10, cell.contentView.frame.size.width-20, cell.contentView.frame.size.height-20);
         label        			= [[UILabel alloc] initWithFrame:labelRect];
@@ -141,12 +118,12 @@
         
         [label addSubview:borderView];
 
-        [cell.contentView addSubview:label];
+		[cell.contentView addSubview:label];
     }
     else {
         label = cell.contentView.subviews[0];
     }
-    
+	
     // Populate the views with data from a data source
     label.text = [NSString stringWithFormat:@"%@", @(indexPath.row)];
 	

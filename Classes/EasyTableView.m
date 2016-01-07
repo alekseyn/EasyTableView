@@ -16,9 +16,9 @@
 
 - (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)width {
     if (self = [super initWithFrame:frame]) {
-		self.orientation = EasyTableViewOrientationHorizontal;
-        self.tableView = [UITableView new];
-        self.tableView.rowHeight = width;
+		self.orientation			= EasyTableViewOrientationHorizontal;
+        self.tableView				= [UITableView new];
+        self.tableView.rowHeight	= width;
 	}
     return self;
 }
@@ -26,9 +26,9 @@
 
 - (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)height {
     if (self = [super initWithFrame:frame]) {
-		self.orientation = EasyTableViewOrientationVertical;
-        self.tableView = [UITableView new];
-        self.tableView.rowHeight = height;
+		self.orientation			= EasyTableViewOrientationVertical;
+        self.tableView				= [UITableView new];
+        self.tableView.rowHeight	= height;
     }
     return self;
 }
@@ -43,6 +43,7 @@
     _tableView.delegate			= self;
     _tableView.dataSource		= self;
     _tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	
     [self addSubview:_tableView];
 }
 
@@ -99,18 +100,23 @@
 	return size;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([self.delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
         return [self.delegate numberOfSectionsInEasyTableView:self];
     }
     return 1;
 }
 
+- (void)reload {
+	[self.tableView reloadData];
+}
+
 #pragma mark - Footers and Headers
 
--(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
         UIView *headerView = [self.delegate easyTableView:self viewForHeaderInSection:section];
+		
 		if (self.orientation == EasyTableViewOrientationHorizontal)
 			return headerView.frame.size.width;
 		else 
@@ -119,9 +125,10 @@
     return 0.0;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
         UIView *footerView = [self.delegate easyTableView:self viewForFooterInSection:section];
+		
 		if (self.orientation == EasyTableViewOrientationHorizontal)
 			return footerView.frame.size.width;
 		else 
@@ -149,17 +156,19 @@
 	return rotatedView;
 }
 
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
 		UIView *sectionView = [self.delegate easyTableView:self viewForHeaderInSection:section];
+		
 		return [self viewToHoldSectionView:sectionView];
     }
     return nil;
 }
 
--(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
 		UIView *sectionView = [self.delegate easyTableView:self viewForFooterInSection:section];
+		
 		return [self viewToHoldSectionView:sectionView];
     }
     return nil;

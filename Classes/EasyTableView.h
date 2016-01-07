@@ -31,7 +31,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
+typedef NS_ENUM(NSUInteger, EasyTableViewOrientation) {
     EasyTableViewOrientationVertical,
 	EasyTableViewOrientationHorizontal
 };
@@ -56,10 +56,10 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 @property (nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
-@property (nonatomic, assign) NSUInteger numberOfCells;
 
 - (instancetype)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
 - (instancetype)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
+- (void)reload;
 
 @end

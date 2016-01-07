@@ -10,12 +10,14 @@
 #import <UIKit/UIKit.h>
 #import "EasyTableView.h"
 #import "ImageStore.h"
+#import "ImageViewCell.h"
 
 @interface FlipsideViewController : UIViewController <EasyTableViewDelegate, ImageStoreDelegate>
 
-@property (nonatomic) IBOutlet UILabel *errorLabel;
-@property (nonatomic) ImageStore *imageStore;
-@property (nonatomic) EasyTableView *easyTableView;
+@property (nonatomic, weak) IBOutlet EasyTableView *easyTableView;		// Demonstrates how to setup an EasyTableView in a storyboard
+@property (nonatomic, weak) IBOutlet UILabel *errorLabel;
+@property (nonatomic, strong) IBOutlet ImageViewCell *imageViewCell;
+@property (nonatomic, strong) ImageStore *imageStore;
 
 - (IBAction)done:(id)sender;
 

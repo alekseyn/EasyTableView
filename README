@@ -1,4 +1,4 @@
-EasyTableView 2.0 - January 6, 2016
+EasyTableView 2.0 - January 7, 2016
 
 IMPORTANT NOTE: The API for EasyTableView has changed of January 6, 2016. So if you have been a consumer of EasyTableView prior to this date, you may find that this update breaks your existing projects. 
 
@@ -24,47 +24,20 @@ The second concern addressed by EasyTableView is horizontal table views. Table v
 So now you can create simple partial screen table views, either vertically or horizontally, all with the same interface.
 
 
-CHANGES
-=======
-
-JANUARY 6, 2016 - Version 2.0
-Updated for iOS 9. Interface simplified. A demonstration of use with storyboards is now included.
-
-JANUARY 10, 2013 - Version 1.1
-Updated for iOS 6. Also added new setScrollFraction method added which will scroll the table view to a fraction of the total scroll length.
-
-MARCH 5, 2012
-Updated to support ARC. EasyTableView now requires ARC.
-
-MARCH 1, 2012
-Whereas before EasyTableView was implemented to work with only one table view section, it has now been generalized to work with multiple table view sections. It also now supports section headers and footers. If you would like too see the demo run using just a single table view section, comment out the following line in EasyTableViewController.m:
-
-	#define SHOW_MULTIPLE_SECTIONS	1
-
-JANUARY 31, 2012
-The sample project has been updated with a comprehensive example that demonstrates the use of EasyTableView with public images loaded from the Flickr website. Tap the info button to see that example in action. If you get an error, please tap Done and try again. The use of EasyTableView with remote images is implemented in FlipsideViewController.
-
-
-KNOWN LIMITATIONS
-=================
- 
-1. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
-
-2. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. 
-
-
 USAGE
 =====
 
-To understand how to use EasyTableView, study the code in EasyTableViewController.m or FlipsideViewController.m. To create a new EasyTableView object, look at the methods (void)setupHorizontalView and (void)setupVerticalView. As seen in the source code, you initialize a vertical scrolling table view with:
+To understand how to use EasyTableView, study the code in EasyTableViewController.m. To create a new EasyTableView object, look at the methods (void)setupHorizontalView and (void)setupVerticalView. Create a vertical scrolling table view with:
 
 - (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 
-To initialize a horizontal scrolling table view use:
+To create a new horizontal scrolling table view use:
 
 - (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
 
-There are only two delegate methods that must always be implemented as part of the EasyTableViewDelegate protocol:
+For even simpler setup, look to see how to use EasyTableView with a storyboard in FlipsideViewController.m.
+
+There are only two delegate methods that must be implemented as part of the EasyTableViewDelegate protocol:
 
 - (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section
 - (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,6 +49,16 @@ If you plan to setup an EasyTableView with multiple sections, you must implement
 That's all there is to it. It is very easy to use. And yes, that is a picture of my tent!
 
 
+KNOWN LIMITATIONS
+=================
+ 
+1. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
+
+2. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. 
+
+
+LICENSE
+=======
 EasyTableView is released under the New BSD License.
 
 Copyright (c) 2010-2016, Yodel Code LLC

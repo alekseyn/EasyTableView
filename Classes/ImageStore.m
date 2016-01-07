@@ -38,7 +38,7 @@
 					[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 						if ([aDelegate respondsToSelector:@selector(errorMessage:)]) {
 							if (error)
-								[aDelegate errorMessage:[NSString stringWithFormat:@"%@ Retrying...", [error localizedDescription]]];
+								[aDelegate errorMessage:[NSString stringWithFormat:@"%@ Retrying.", [error localizedDescription]]];
 							else
 								[aDelegate errorMessage:nil];
 						}
