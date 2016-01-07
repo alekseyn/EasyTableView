@@ -11,15 +11,8 @@
 #import "EasyTableView.h"
 #import "ImageStore.h"
 
-@class FlipsideViewController;
-
-@protocol FlipsideViewControllerDelegate
-- (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
-@end
-
 @interface FlipsideViewController : UIViewController <EasyTableViewDelegate, ImageStoreDelegate>
 
-@property (nonatomic, unsafe_unretained) IBOutlet id<FlipsideViewControllerDelegate> delegate;
 @property (nonatomic) IBOutlet UILabel *errorLabel;
 @property (nonatomic) ImageStore *imageStore;
 @property (nonatomic) EasyTableView *easyTableView;

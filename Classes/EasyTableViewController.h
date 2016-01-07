@@ -10,11 +10,12 @@
 #import "EasyTableView.h"
 #import "FlipsideViewController.h"
 
-@interface EasyTableViewController : UIViewController <EasyTableViewDelegate, FlipsideViewControllerDelegate>
+@interface EasyTableViewController : UIViewController <EasyTableViewDelegate>
 
-@property (nonatomic) IBOutlet UILabel *bigLabel;
-@property (nonatomic) EasyTableView *verticalView;
-@property (nonatomic) EasyTableView *horizontalView;
+@property (nonatomic, weak) IBOutlet UILabel *bigLabel;
+@property (nonatomic, weak) IBOutlet EasyTableView *ibView;		// Demonstrates how to setup an EasyTableView in a storyboard
+@property (nonatomic) EasyTableView *verticalView;				// Demonstrates how to setup a vertical EasyTableView programmatically
+@property (nonatomic) EasyTableView *horizontalView;			// Demonstrates how to setup a horizontal EasyTableView programmatically
 
 @end
 

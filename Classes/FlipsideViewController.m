@@ -17,12 +17,6 @@
 
 @implementation FlipsideViewController
 
-@synthesize delegate = _delegate;
-@synthesize imageStore = _imageStore;
-@synthesize easyTableView = _easyTableView;
-@synthesize errorLabel = _errorLabel;
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
@@ -53,9 +47,9 @@
 
 #pragma mark - EasyTableView Initialization
 
-- (void)setupEasyTableViewWithNumCells:(NSUInteger)count {
+- (void)setupEasyTableView {
 	CGRect frameRect	= CGRectMake(0, 44, self.view.bounds.size.width, TABLEVIEW_HEIGHT);
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:count ofWidth:TABLECELL_WIDTH];
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect ofWidth:TABLECELL_WIDTH];
 	self.easyTableView	= view;
 	
 	self.easyTableView.delegate						= self;
@@ -69,52 +63,62 @@
 
 #pragma mark - EasyTableViewDelegate
 
-- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect {
-	// Create a container view for an EasyTableView cell
-	UIView *container = [[UIView alloc] initWithFrame:rect];;
+- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"EasyTableViewCell";
+    UITableViewCell *cell = [easyTableView.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 	
-	// Setup an image view to display an image
-	UIImageView *imageView	= [[UIImageView alloc] initWithFrame:CGRectMake(1, 0, rect.size.width-2, rect.size.height)];
-	imageView.tag			= IMAGE_TAG;
-	imageView.contentMode	= UIViewContentModeScaleAspectFill;
-	
-	[container addSubview:imageView];
-	
-	// Setup a label to display the image title
-	CGRect labelRect		= CGRectMake(10, rect.size.height-20, rect.size.width-20, 20);
-	UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-	label.textAlignment		= UITextAlignmentCenter;
-#else
-	label.textAlignment		= NSTextAlignmentCenter;
-#endif
-	label.textColor			= [UIColor colorWithWhite:1.0 alpha:0.5];
-	label.backgroundColor	= [UIColor clearColor];
-	label.font				= [UIFont boldSystemFontOfSize:14];
-	label.tag				= LABEL_TAG;
-	
-	[container addSubview:label];
-	
-	return container;
-}
-
-// Second delegate populates the views with data from a data source
-
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
-	// Set the image title for the given index
-	UILabel *label = (UILabel *)[view viewWithTag:LABEL_TAG];
-	label.text = self.imageStore.titles[indexPath.row];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.clipsToBounds = YES;
+        
+        // Create a container view for an EasyTableView cell
+        UIView *container = [[UIView alloc] initWithFrame:cell.bounds];
+        container.autoresizingMask  = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        // Setup an image view to display an image
+        UIImageView *imageView	= [[UIImageView alloc] initWithFrame:CGRectMake(1, 0, cell.bounds.size.width-2, cell.bounds.size.height)];
+        imageView.tag			= IMAGE_TAG;
+        imageView.contentMode	= UIViewContentModeScaleAspectFill;
+        
+        [cell.contentView addSubview:imageView];
+        
+        // Setup a label to display the image title
+        CGRect labelRect		= CGRectMake(10, cell.bounds.size.height-20, cell.bounds.size.width-20, 20);
+        UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
+        label.textAlignment		= NSTextAlignmentCenter;
+        label.textColor			= [UIColor colorWithWhite:1.0 alpha:0.5];
+        label.backgroundColor	= [UIColor clearColor];
+        label.font				= [UIFont boldSystemFontOfSize:14];
+        label.tag				= LABEL_TAG;
+        label.autoresizingMask  = UIViewAutoresizingFlexibleTopMargin;
+        
+        [cell.contentView addSubview:label];
+        
+//        [cell.contentView addSubview:container];
+    }
+    
+    // Set the image title for the given index
+	UILabel *label	= (UILabel *)[cell viewWithTag:LABEL_TAG];
+	label.text		= self.imageStore.titles[indexPath.row];
 	
 	// Set the image for the given index
-	UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
-	imageView.image = [self.imageStore imageAtIndex:indexPath.row];
+	UIImageView *imageView	= (UIImageView *)[cell viewWithTag:IMAGE_TAG];
+	imageView.image			= [self.imageStore imageAtIndex:indexPath.row];
+    
+    return cell;
 }
 
 #pragma mark - ImageStoreDelegate
 
 - (void)imageTitles:(NSArray *)titles {
 	// Now that we know how many images we will get, we can create our EasyTableView
-	[self setupEasyTableViewWithNumCells:[titles count]];
+	[self setupEasyTableView];
+}
+
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.imageStore.titles.count;
 }
 
 - (void)errorMessage:(NSString *)message {
@@ -123,7 +127,8 @@
 
 - (void)image:(UIImage *)image loadedAtIndex:(NSUInteger)index {
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-	UIView *view = [self.easyTableView viewAtIndexPath:indexPath];
+    UITableViewCell *cell = [self.easyTableView.tableView cellForRowAtIndexPath:indexPath];
+	UIView *view = cell.contentView.subviews[0];
 	
 	// The view might be nil if the cell has scrolled offscreen while we were waiting for the image to load.
 	// In that case, there is no need to set the image, nor is it even possible.
@@ -131,13 +136,14 @@
 		// Set the image for the view (cell)
 		UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
 		imageView.image = image;
+		imageView.contentMode = UIViewContentModeScaleAspectFill;
 	}
 }
 
 #pragma mark - Actions
 
 - (IBAction)done:(id)sender {
-    [self.delegate flipsideViewControllerDidFinish:self];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

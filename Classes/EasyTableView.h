@@ -25,35 +25,25 @@
  
  KNOWN LIMITATIONS:
  
- This implementation currently only supports one section. The view relies
- on three reserved view tags, 800 - 802.
- 
  A horizontal EasyTableView will correctly auto-resize it's overall length only.
  A horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
  */
 
 #import <UIKit/UIKit.h>
 
-#define TABLEVIEW_TAG			800
-#define ROTATED_CELL_VIEW_TAG	801
-#define CELL_CONTENT_TAG		802
-
-typedef enum {
-	EasyTableViewOrientationVertical,
+typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
+    EasyTableViewOrientationVertical,
 	EasyTableViewOrientationHorizontal
-} EasyTableViewOrientation;
+};
 
 @class EasyTableView;
 
 @protocol EasyTableViewDelegate <NSObject>
-- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath*)indexPath;
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 @optional
-- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView;
-- (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset;
-- (void)easyTableView:(EasyTableView *)easyTableView scrolledToFraction:(CGFloat)fraction;
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
-- (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
+- (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
 - (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
 - (CGFloat)easyTableView:(EasyTableView *)easyTableView heightOrWidthForCellAtIndexPath:(NSIndexPath *)indexPath;
@@ -62,23 +52,15 @@ typedef enum {
 
 @interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, unsafe_unretained) id<EasyTableViewDelegate> delegate;
-@property (nonatomic, readonly, unsafe_unretained) UITableView *tableView;
-@property (nonatomic, readonly, unsafe_unretained) NSArray *visibleViews;
-@property (nonatomic) NSIndexPath *selectedIndexPath;
+@property (nonatomic, weak) IBOutlet id<EasyTableViewDelegate> delegate;
+@property (nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIColor *cellBackgroundColor;
-@property (nonatomic, readonly) EasyTableViewOrientation orientation;
+@property (nonatomic) EasyTableViewOrientation orientation;
 @property (nonatomic, assign) CGPoint contentOffset;
 @property (nonatomic, assign) NSUInteger numberOfCells;
 
-- (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCells ofWidth:(CGFloat)cellWidth;
-- (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numCells ofHeight:(CGFloat)cellHeight;
-- (CGPoint)offsetForView:(UIView *)cell;
+- (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
+- (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
-- (void)setScrollFraction:(CGFloat)fraction animated:(BOOL)animated;
-- (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
-- (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath*)indexPathForView:(UIView *)cell;
-- (void)reloadData;
 
 @end
