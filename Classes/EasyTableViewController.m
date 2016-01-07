@@ -179,6 +179,11 @@
 	self.bigLabel.text	= label.text;
 }
 
+// Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
+	return NUM_OF_CELLS;
+}
+
 #pragma mark - Optional EasyTableView delegate methods for section headers and footers
 
 #ifdef SHOW_MULTIPLE_SECTIONS
@@ -186,11 +191,6 @@
 // Delivers the number of sections in the TableView
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView {
     return NUM_OF_SECTIONS;
-}
-
-// Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
-- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
-    return NUM_OF_CELLS;
 }
 
 // The height of the header section view MUST be the same as your HORIZONTAL_TABLEVIEW_HEIGHT (horizontal EasyTableView only)

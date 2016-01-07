@@ -58,20 +58,20 @@ USAGE
 
 To understand how to use EasyTableView, study the code in EasyTableViewController.m or FlipsideViewController.m. To create a new EasyTableView object, look at the methods (void)setupHorizontalView and (void)setupVerticalView. As seen in the source code, you initialize a vertical scrolling table view with:
 
-- (id)initWithFrame:(CGRect)frame numberOfRows:(NSUInteger)numCells ofHeight:(CGFloat)cellHeight;
+- (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 
 To initialize a horizontal scrolling table view use:
 
-- (id)initWithFrame:(CGRect)frame numberOfColumns:(NSUInteger)numCells ofWidth:(CGFloat)cellWidth;
+- (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
 
-The numberOfRows or numberOfColumns parameters in the above two methods are only used if you are implementing an EasyTableView with one section. Otherwise, those parameters are ignored and can be set to anything. If you plan to setup an EasyTableView with multiple sections, you must implement the following two delegate methods:
+There are only two delegate methods that must always be implemented as part of the EasyTableViewDelegate protocol:
+
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
+- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+If you plan to setup an EasyTableView with multiple sections, you must implement the following delegate method:
 
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
-- (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
-
-There is only one delegate method for the EasyTableViewDelegate protocol that must alway be implemented:
-
-- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 That's all there is to it. It is very easy to use. And yes, that is a picture of my tent!
 

@@ -58,8 +58,8 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation){
 @property (nonatomic, assign) CGPoint contentOffset;
 @property (nonatomic, assign) NSUInteger numberOfCells;
 
-- (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
-- (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
+- (instancetype)initWithFrame:(CGRect)frame ofWidth:(CGFloat)cellWidth;
+- (instancetype)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 - (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
 
 @end

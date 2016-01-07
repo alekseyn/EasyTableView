@@ -102,8 +102,7 @@
 	[self setupEasyTableView];
 }
 
-- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
     return self.imageStore.titles.count;
 }
 
