@@ -1,10 +1,10 @@
-EasyTableView Notes - Updated January 10, 2013
+EasyTableView 2.0 - January 6, 2016
 
-IMPORTANT NOTE: The API for EasyTableView has changed of March 1, 2012. So if you have been a consumer of EasyTableView prior to this date, you may find that this update breaks your existing projects. This new release has support for multiple sections, and section headers and footers. To fix any problems created by this update, simply replace any "index" parameter with an "indexPath" parameter. If you don't have an indexPath parameter, you can easily create an indexPatch for an index with:
+IMPORTANT NOTE: The API for EasyTableView has changed of January 6, 2016. So if you have been a consumer of EasyTableView prior to this date, you may find that this update breaks your existing projects. 
 
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
 
 SUMMARY
+=======
 
 This project demonstrates the use of the EasyTableView class. The demo is intended to be run on an iPad only, but there is no reason why EasyTableView could not be used on an iPhone.
 
@@ -13,7 +13,9 @@ To use EasyTableView in your own project, all you need to include are the follow
 EasyTableView.h
 EasyTableView.m
 
+
 DESCRIPTION
+===========
 
 EasyTableView was created to address two concerns. The first is the ability to have a table view, horizontal or vertical, that only partially fills the screen. Normally one would use UITableViewController but as per Apple documentation, that requires table views that fill the whole screen. EasyTableView addresses this problem by acting as the controller for the embedded table view, and exposes a subset of table view functionality with it's own delegate methods.
  
@@ -21,7 +23,12 @@ The second concern addressed by EasyTableView is horizontal table views. Table v
  
 So now you can create simple partial screen table views, either vertically or horizontally, all with the same interface.
 
+
 CHANGES
+=======
+
+JANUARY 6, 2016 - Version 2.0
+Updated for iOS 9. Interface simplified. A demonstration of use with storyboards is now included.
 
 JANUARY 10, 2013 - Version 1.1
 Updated for iOS 6. Also added new setScrollFraction method added which will scroll the table view to a fraction of the total scroll length.
@@ -37,15 +44,17 @@ Whereas before EasyTableView was implemented to work with only one table view se
 JANUARY 31, 2012
 The sample project has been updated with a comprehensive example that demonstrates the use of EasyTableView with public images loaded from the Flickr website. Tap the info button to see that example in action. If you get an error, please tap Done and try again. The use of EasyTableView with remote images is implemented in FlipsideViewController.
 
+
 KNOWN LIMITATIONS
+=================
  
-1. EasyTableView relies on three reserved view tags, 800 - 802.
+1. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
 
-2. A horizontal EasyTableView will correctly auto-resize it's overall length. However a horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
+2. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. 
 
-3. Loading the Flickr catalog will sometimes fail due to JSON parsing errors. 
 
 USAGE
+=====
 
 To understand how to use EasyTableView, study the code in EasyTableViewController.m or FlipsideViewController.m. To create a new EasyTableView object, look at the methods (void)setupHorizontalView and (void)setupVerticalView. As seen in the source code, you initialize a vertical scrolling table view with:
 
@@ -60,28 +69,14 @@ The numberOfRows or numberOfColumns parameters in the above two methods are only
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
 - (NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section;
 
-There are two delegate methods for the EasyTableViewDelegate protocol that must always be implemented. They are:
+There is only one delegate method for the EasyTableViewDelegate protocol that must alway be implemented:
 
-- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect;
-- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
-In the first delegate method you are required to return a UIView object (or UIView subclass) which fits within the bounds of the "rect" parameter. The simplest thing to do is to create a UIView object with the frame set to "rect". In the demo you will see that a UIView is created which is inset, simply for aesthetics. This delegate method is intended only to create the custom views for each of your cells, NOT the data. It is called N times, where N is the number of cells specified when an EasyTableView object is first initialized (if you have a single section).
-
-The second delegate method is where you set the data for each of your cells, given a specified "indexPath". The "view" parameter is the same UIView object (or subclass) that was returned from your implementation of the first delegate method.
-
-That's all there is to it. It is very easy to use. There are additional methods defined in EasyTableView.h that you might also find useful for your own application:
-
-- (void)selectCellAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
-- (UIView *)viewAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath*)indexPathForView:(UIView *)cell;
-
-- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
-- (CGPoint)offsetForView:(UIView *)cell;
-
-And yes, that is a picture of my tent!
+That's all there is to it. It is very easy to use. And yes, that is a picture of my tent!
 
 
 EasyTableView is released under the New BSD License.
 
-Copyright (c) 2010-2012, Yodel Code LLC
+Copyright (c) 2010-2016, Yodel Code LLC
 All rights reserved.
