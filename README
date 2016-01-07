@@ -66,7 +66,7 @@ To initialize a horizontal scrolling table view use:
 
 There are only two delegate methods that must always be implemented as part of the EasyTableViewDelegate protocol:
 
-- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section
 - (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 If you plan to setup an EasyTableView with multiple sections, you must implement the following delegate method:
