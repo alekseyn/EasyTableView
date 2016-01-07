@@ -11,10 +11,13 @@
 #import "EasyTableView.h"
 
 #define SHOW_MULTIPLE_SECTIONS		1		// If commented out, multiple sections with header and footer views are not shown
+#define SHOW_VERTICAL_TABLEVIEW		NO		// EasyTableView API works for both horizontal and vertical placement
+#define SHOW_HORIZONTAL_TABLEVIEW	YES
 
 #define HORIZONTAL_TABLEVIEW_HEIGHT	140
 #define VERTICAL_TABLEVIEW_WIDTH	180
 #define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
+#define CELL_BACKGROUND_COLOR		[[UIColor greenColor] colorWithAlphaComponent:0.15]
 
 #define BORDER_VIEW_TAG				10
 
@@ -25,23 +28,33 @@
 	#define NUM_OF_CELLS			21
 #endif
 
-@implementation EasyTableViewController
-{
-    NSIndexPath * _selectedVerticalIndexPath;
-    NSIndexPath * _selectedHorizontalIndexPath;
+@implementation EasyTableViewController {
+    NSIndexPath *_selectedVerticalIndexPath;
+    NSIndexPath *_selectedHorizontalIndexPath;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    [self setupVerticalView];
-	[self setupHorizontalView];
-    
-    self.ibView.orientation = EasyTableViewOrientationHorizontal;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+	if (SHOW_HORIZONTAL_TABLEVIEW) {
+		[self setupHorizontalView];
+	}
+	
+	if (SHOW_VERTICAL_TABLEVIEW) {
+		// Shows how the same EasyTableView can be used vertically as well
+		[self setupVerticalView];
+	}
+	else {
+		// Stretch the storyboard EasyTableView to full width since we have the full screen now
+		
+		CGRect easyTableViewFrame		= self.storyboardView.frame;
+		easyTableViewFrame.size.width	= [UIScreen mainScreen].bounds.size.width;
+		
+		self.storyboardView.frame = easyTableViewFrame;
+	}
+	
+	// This must be set because initWithFrame for EasyTableView cannot be called when loaded from a storyboard
+    self.storyboardView.orientation = EasyTableViewOrientationHorizontal;
 }
 
 #pragma mark - EasyTableView Initialization
@@ -57,7 +70,6 @@
 	self.horizontalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
 	self.horizontalView.tableView.allowsSelection	= YES;
 	self.horizontalView.tableView.separatorColor	= [UIColor darkGrayColor];
-	self.horizontalView.cellBackgroundColor			= [UIColor darkGrayColor];
 	self.horizontalView.autoresizingMask			= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 	
 	[self.view addSubview:self.horizontalView];
@@ -75,7 +87,6 @@
 	self.verticalView.tableView.backgroundColor	= TABLE_BACKGROUND_COLOR;
 	self.verticalView.tableView.allowsSelection	= YES;
 	self.verticalView.tableView.separatorColor	= [[UIColor blackColor] colorWithAlphaComponent:0.1];
-	self.verticalView.cellBackgroundColor		= [[UIColor blackColor] colorWithAlphaComponent:0.1];
 	self.verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	// Allow verticalView to scroll up and completely clear the horizontalView
@@ -107,8 +118,9 @@
 		// Create a new table view cell
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.contentView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.15];
-		cell.backgroundColor = [UIColor clearColor];
+		
+		cell.contentView.backgroundColor = CELL_BACKGROUND_COLOR;
+		cell.backgroundColor = TABLE_BACKGROUND_COLOR;
 		
         CGRect labelRect		= CGRectMake(10, 10, cell.contentView.frame.size.width-20, cell.contentView.frame.size.height-20);
         label        			= [[UILabel alloc] initWithFrame:labelRect];
@@ -149,8 +161,7 @@
 
 // Optional delegate to track the selection of a particular cell
 
-- (UIView *)viewForIndexPath:(NSIndexPath *)indexPath easyTableView:(EasyTableView *)tableView
-{
+- (UIView *)viewForIndexPath:(NSIndexPath *)indexPath easyTableView:(EasyTableView *)tableView {
     UITableViewCell * cell	= [tableView.tableView cellForRowAtIndexPath:indexPath];
     return cell.contentView.subviews[0];
 }

@@ -13,9 +13,9 @@
 @interface EasyTableViewController : UIViewController <EasyTableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *bigLabel;
-@property (nonatomic, weak) IBOutlet EasyTableView *ibView;		// Demonstrates how to setup an EasyTableView in a storyboard
-@property (nonatomic) EasyTableView *verticalView;				// Demonstrates how to setup a vertical EasyTableView programmatically
-@property (nonatomic) EasyTableView *horizontalView;			// Demonstrates how to setup a horizontal EasyTableView programmatically
+@property (nonatomic, weak) IBOutlet EasyTableView *storyboardView;	// Demonstrates how to setup an EasyTableView in a storyboard
+@property (nonatomic) EasyTableView *verticalView;					// Demonstrates how to setup a vertical EasyTableView programmatically
+@property (nonatomic) EasyTableView *horizontalView;				// Demonstrates how to setup a horizontal EasyTableView programmatically
 
 @end
 

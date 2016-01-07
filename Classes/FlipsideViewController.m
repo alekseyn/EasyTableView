@@ -34,29 +34,17 @@
 	self.imageStore = store;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    
-	self.errorLabel = nil;
-	self.easyTableView = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
-}
-
 #pragma mark - EasyTableView Initialization
 
 - (void)setupEasyTableView {
 	CGRect frameRect	= CGRectMake(0, 44, self.view.bounds.size.width, TABLEVIEW_HEIGHT);
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect ofWidth:TABLECELL_WIDTH];
-	self.easyTableView	= view;
+	self.easyTableView	= [[EasyTableView alloc] initWithFrame:frameRect ofWidth:TABLECELL_WIDTH];
 	
 	self.easyTableView.delegate						= self;
 	self.easyTableView.tableView.backgroundColor	= [UIColor clearColor];
 	self.easyTableView.tableView.separatorColor		= [UIColor blackColor];
-	self.easyTableView.cellBackgroundColor			= [UIColor blackColor];
 	self.easyTableView.autoresizingMask				= UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+	self.easyTableView.tableView.separatorStyle		= UITableViewCellSeparatorStyleNone;
 	
 	[self.view addSubview:self.easyTableView];
 }
@@ -71,16 +59,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.clipsToBounds = YES;
-        
-        // Create a container view for an EasyTableView cell
-        UIView *container = [[UIView alloc] initWithFrame:cell.bounds];
-        container.autoresizingMask  = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		cell.contentView.backgroundColor = [UIColor blackColor];
         
         // Setup an image view to display an image
-        UIImageView *imageView	= [[UIImageView alloc] initWithFrame:CGRectMake(1, 0, cell.bounds.size.width-2, cell.bounds.size.height)];
-        imageView.tag			= IMAGE_TAG;
-        imageView.contentMode	= UIViewContentModeScaleAspectFill;
-        
+		CGRect imageViewFrame		= cell.contentView.bounds;
+		
+        UIImageView *imageView		= [[UIImageView alloc] initWithFrame:CGRectInset(imageViewFrame, 1, 0)];
+        imageView.tag				= IMAGE_TAG;
+        imageView.contentMode		= UIViewContentModeScaleAspectFill;
+		imageView.autoresizingMask	= UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		
         [cell.contentView addSubview:imageView];
         
         // Setup a label to display the image title
@@ -94,8 +82,6 @@
         label.autoresizingMask  = UIViewAutoresizingFlexibleTopMargin;
         
         [cell.contentView addSubview:label];
-        
-//        [cell.contentView addSubview:container];
     }
     
     // Set the image title for the given index
@@ -136,7 +122,6 @@
 		// Set the image for the view (cell)
 		UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
 		imageView.image = image;
-		imageView.contentMode = UIViewContentModeScaleAspectFill;
 	}
 }
 
