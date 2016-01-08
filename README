@@ -13,6 +13,8 @@ To use EasyTableView in your own project, all you need to include are the follow
 EasyTableView.h
 EasyTableView.m
 
+This was written before UICollectionView became available, but developers may still prefer to use EasyTableView for it’s simplicity.
+ 
 
 DESCRIPTION
 ===========
@@ -20,14 +22,14 @@ DESCRIPTION
 EasyTableView was created to address two concerns. The first is the ability to have a table view, horizontal or vertical, that only partially fills the screen. Normally one would use UITableViewController but as per Apple documentation, that requires table views that fill the whole screen. EasyTableView addresses this problem by acting as the controller for the embedded table view, and exposes a subset of table view functionality with it's own delegate methods.
  
 The second concern addressed by EasyTableView is horizontal table views. Table views were initially designed to be vertical only. EasyTableView solves this problem by rotating the table view, and then reverse rotating table view cells. One could also provide horizontally scrolling table views by subclassing UIScrollView, but I wanted to create one simple, common interface for creating both vertical EasyTableViews and horizontal EasyTableViews.
- 
-So now you can create simple partial screen table views, either vertically or horizontally, all with the same interface.
+
+So now you can create simple partial-screen table views, either vertically or horizontally, all with the same interface.
 
 
 USAGE
 =====
 
-To understand how to use EasyTableView, study the code in EasyTableViewController.m. To create a new EasyTableView object, look at the methods (void)setupHorizontalView and (void)setupVerticalView. Create a vertical scrolling table view with:
+To understand how to use EasyTableView, study the code in EasyTableViewController.m. To create a new EasyTableView object, look at the methods -(void)setupHorizontalView and -(void)setupVerticalView. Create a vertical scrolling table view with:
 
 - (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)cellHeight;
 
