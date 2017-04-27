@@ -12,8 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		5BAB2C5411BA3B1B00C5272F /* MedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */; };
-		5BAB2C5511BA3B1B00C5272F /* SmallAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */; };
+		5B69E6371EB1B9F2007DDF3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B69E6351EB1B539007DDF3E /* Images.xcassets */; };
 		5BAB2C6211BA3B2500C5272F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C5711BA3B2500C5272F /* background.png */; };
 		5BAB2C6C11BA3B2500C5272F /* selected_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C6111BA3B2500C5272F /* selected_border.png */; };
 		5BAB2C6E11BA3B6300C5272F /* image_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BAB2C6D11BA3B6300C5272F /* image_border.png */; };
@@ -36,8 +35,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EasyTableView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView_Prefix.pch; sourceTree = "<group>"; };
 		5B2CD3CB11BAA38F0072948D /* AppIcon.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppIcon.pxm; sourceTree = "<group>"; };
-		5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MedAppIcon.png; sourceTree = "<group>"; };
-		5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SmallAppIcon.png; sourceTree = "<group>"; };
+		5B69E6351EB1B539007DDF3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Images/Images.xcassets; sourceTree = "<group>"; };
 		5BAB2C5711BA3B2500C5272F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/background.png; sourceTree = "<group>"; };
 		5BAB2C6111BA3B2500C5272F /* selected_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selected_border.png; path = Images/selected_border.png; sourceTree = "<group>"; };
 		5BAB2C6D11BA3B6300C5272F /* image_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_border.png; path = Images/image_border.png; sourceTree = "<group>"; };
@@ -124,11 +122,10 @@
 		29B97317FDCFA39411CA2CEA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B69E6351EB1B539007DDF3E /* Images.xcassets */,
 				5BAB2C6D11BA3B6300C5272F /* image_border.png */,
 				5BAB2C6111BA3B2500C5272F /* selected_border.png */,
 				5BAB2C5711BA3B2500C5272F /* background.png */,
-				5BAB2C5211BA3B1B00C5272F /* MedAppIcon.png */,
-				5BAB2C5311BA3B1B00C5272F /* SmallAppIcon.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -218,9 +215,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B69E6371EB1B9F2007DDF3E /* Images.xcassets in Resources */,
 				5BFF11441C3EF5A500F352D9 /* Main.storyboard in Resources */,
-				5BAB2C5411BA3B1B00C5272F /* MedAppIcon.png in Resources */,
-				5BAB2C5511BA3B1B00C5272F /* SmallAppIcon.png in Resources */,
 				5BAB2C6211BA3B2500C5272F /* background.png in Resources */,
 				5BAB2C6C11BA3B2500C5272F /* selected_border.png in Resources */,
 				5BFF11431C3EF5A500F352D9 /* ImageViewCell.xib in Resources */,
@@ -252,6 +248,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -275,6 +273,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
