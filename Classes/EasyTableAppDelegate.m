@@ -1,9 +1,8 @@
 //
 //  EasyTableAppDelegate.m
-//  EasyTable
+//  EasyTableView
 //
 //  Created by Aleksey Novicov on 6/5/10.
-//  Copyright Yodel Code LLC 2010. All rights reserved.
 //
 
 #import "EasyTableAppDelegate.h"

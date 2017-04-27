@@ -1,9 +1,8 @@
 //
 //  EasyTableViewController.h
-//  EasyTableViewController
+//  EasyTableViewView
 //
 //  Created by Aleksey Novicov on 5/30/10.
-//  Copyright Yodel Code LLC 2010. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

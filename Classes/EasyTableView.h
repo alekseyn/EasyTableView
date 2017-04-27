@@ -3,7 +3,6 @@
 //  EasyTableView
 //
 //  Created by Aleksey Novicov on 5/30/10.
-//  Copyright 2010 Yodel Code. All rights reserved.
 //
 //
 /* ===========================================================================
@@ -44,13 +43,15 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation) {
 @optional
 - (NSUInteger)numberOfSectionsInEasyTableView:(EasyTableView*)easyTableView;
 - (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
-- (UIView*)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
+- (UIView *)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
+- (UIView *)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
 - (CGFloat)easyTableView:(EasyTableView *)easyTableView heightOrWidthForCellAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)easyTableViewAllowsCellDeletion:(EasyTableView *)easyTableView;
+- (void)easyTableView:(EasyTableView *)easyTableView didDeleteCellAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 
-@interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource>
+@interface EasyTableView : UIView <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet id<EasyTableViewDelegate> delegate;
 @property (nonatomic) IBOutlet UITableView *tableView;

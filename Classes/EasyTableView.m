@@ -3,14 +3,18 @@
 //  EasyTableView
 //
 //  Created by Aleksey Novicov on 5/30/10.
-//  Copyright 2010 Yodel Code. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
 #import "EasyTableView.h"
 
+#define DELETE_THRESHOLD 4.0
 
-@implementation EasyTableView
+@implementation EasyTableView {
+	CGPoint centerLocation;
+	CGPoint cellLocation;
+	UIView *cellSuperview;
+}
 
 #pragma mark - Initialization
 
@@ -197,7 +201,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [self.delegate easyTableView:self cellForRowAtIndexPath:indexPath];
-    
+	
+	// Cell deletion must be enabled by the EasyTableView owner
+	BOOL allowCellDeletion = NO;
+	
+	if ([self.delegate respondsToSelector:@selector(easyTableViewAllowsCellDeletion:)]) {
+		allowCellDeletion = [self.delegate easyTableViewAllowsCellDeletion:self];
+	}
+	
+	if (allowCellDeletion && cell.gestureRecognizers.count == 0) {
+		UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+		panGesture.delegate = self;
+		
+		[cell addGestureRecognizer:panGesture];
+	}
+	
     // Rotate if needed
     if ((self.orientation == EasyTableViewOrientationHorizontal) &&
         CGAffineTransformEqualToTransform(cell.contentView.transform, CGAffineTransformIdentity)) {
@@ -208,6 +226,115 @@
         cell.contentView.transform	= CGAffineTransformMakeRotation(M_PI/2.0);
     }
     return cell;
+}
+
+#pragma mark - Pan gesture recognizer (for cell deletion)
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture {
+	
+	if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+		UIPanGestureRecognizer *panGesture = (UIPanGestureRecognizer *)gesture;
+		
+		CGPoint velocity = [panGesture velocityInView:self.tableView];
+		return fabs(velocity.x) > fabs(velocity.y);
+	}
+	return YES;
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)gesture {
+	CGPoint translation = [gesture translationInView:self.superview];
+	
+	CGRect oversizedRect = CGRectInset(gesture.view.frame, -DELETE_THRESHOLD, -DELETE_THRESHOLD);
+	BOOL doesIntersect = CGRectIntersectsRect(oversizedRect, self.frame);
+
+	switch (gesture.state) {
+		case UIGestureRecognizerStateBegan: {
+			
+			// Save current state in case a cell deletion does not materialize
+			cellLocation = CGPointMake(gesture.view.center.x, gesture.view.center.y);
+			cellSuperview = gesture.view.superview;
+			
+			// Move the cell view to EasyTableView's superview
+			centerLocation = [cellSuperview convertPoint:cellLocation toView:self.superview];
+			[self.superview addSubview:gesture.view];
+			
+			if (self.orientation == EasyTableViewOrientationHorizontal) {
+				gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, -M_PI/2);
+			}
+			gesture.view.center = centerLocation;
+			break;
+		}
+			
+		case UIGestureRecognizerStateChanged: {
+			gesture.view.center = CGPointMake(centerLocation.x + translation.x, centerLocation.y + translation.y);
+			
+			gesture.view.layer.borderColor = (doesIntersect) ? nil : [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5].CGColor;
+			gesture.view.layer.borderWidth = (doesIntersect) ? 0.0 : 8.0;
+			
+			break;
+		}
+			
+		case UIGestureRecognizerStateCancelled:
+		case UIGestureRecognizerStateEnded: {
+			gesture.view.center = CGPointMake(centerLocation.x + translation.x, centerLocation.y + translation.y);
+			
+			// Check to see if the translated cell view still intersects with the EasyTableView.
+			// If it does, return it to it's original position. If it doesn't, delete that cell
+			// from the table view, and call the deletion delegate method.
+			
+			if (doesIntersect) {
+				// Return to original position
+				
+				[UIView animateWithDuration:0.25 animations:^{
+					gesture.view.center = centerLocation;
+					
+				} completion:^(BOOL finished) {
+					
+					// Restore proper orientation
+					if (self.orientation == EasyTableViewOrientationHorizontal) {
+						gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, M_PI/2);
+					}
+					
+					// Reinsert into orginal layer of view hierarchy
+					[cellSuperview addSubview:gesture.view];
+					gesture.view.center = cellLocation;
+				}];
+			}
+			else {
+				// Delete the cell by animating the deletion, removing it from the tableview,
+				// and sending a message to the delegate method to update it's data store
+				NSIndexPath *deletedIndexPath = [self.tableView indexPathForCell:(UITableViewCell *)gesture.view];
+				
+				[UIView animateWithDuration:0.3 animations:^{
+					
+					CGFloat scaleFactor		= 0.1;
+					gesture.view.transform	= CGAffineTransformMakeScale(scaleFactor, scaleFactor);
+					gesture.view.alpha		= 0.0;
+					
+					if ([self.delegate respondsToSelector:@selector(easyTableView:didDeleteCellAtIndexPath:)]) {
+						[self.delegate easyTableView:self didDeleteCellAtIndexPath:deletedIndexPath];
+					}
+					
+				} completion:^(BOOL finished) {
+					// Restore the cell for reuse
+					gesture.view.transform			= CGAffineTransformIdentity;
+					gesture.view.layer.borderColor	= nil;
+					gesture.view.layer.borderWidth	= 0.0;
+					
+					// Delete the cell only after animation has completed.
+					// Otherwise cell could disappear prematurely.
+					
+					[self.tableView beginUpdates];
+					[self.tableView deleteRowsAtIndexPaths:@[deletedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+					[self.tableView endUpdates];
+				}];
+			}
+			break;
+		}
+			
+		default:
+			break;
+	}
 }
 
 @end

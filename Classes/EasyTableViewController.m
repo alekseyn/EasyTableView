@@ -1,9 +1,8 @@
 //
 //  EasyTableViewController.m
-//  EasyTableViewController
+//  EasyTableView
 //
 //  Created by Aleksey Novicov on 5/30/10.
-//  Copyright Yodel Code LLC 2010. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -26,15 +25,38 @@
 #endif
 
 @implementation EasyTableViewController {
-    NSIndexPath *_selectedVerticalIndexPath;
-    NSIndexPath *_selectedHorizontalIndexPath;
+    NSIndexPath *selectedVerticalIndexPath;
+    NSIndexPath *selectedHorizontalIndexPath;
+	NSMutableArray *horizontalDataStore;
+	NSMutableArray *verticalDataStore;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	[self setupVerticalDataStore];
+	[self setupHorizontalDataStore];
+	
 	[self setupVerticalView];
 	[self setupHorizontalView];
+}
+
+#pragma mark - Data Stores
+
+- (void)setupVerticalDataStore {
+	verticalDataStore = [[NSMutableArray alloc] initWithCapacity:NUM_OF_CELLS];
+	
+	for (int i = 0; i < NUM_OF_CELLS; i++) {
+		[verticalDataStore addObject:@(i)];
+	}
+}
+
+- (void)setupHorizontalDataStore {
+	horizontalDataStore = [[NSMutableArray alloc] initWithCapacity:NUM_OF_CELLS];
+
+	for (int i = 0; i < NUM_OF_CELLS; i++) {
+		[horizontalDataStore addObject:@(i)];
+	}
 }
 
 #pragma mark - EasyTableView Initialization
@@ -125,11 +147,16 @@
     }
 	
     // Populate the views with data from a data source
-    label.text = [NSString stringWithFormat:@"%@", @(indexPath.row)];
+	if (easyTableView == _horizontalView) {
+		label.text = [[horizontalDataStore objectAtIndex:indexPath.row] stringValue];
+	}
+	else {
+		label.text = [[verticalDataStore objectAtIndex:indexPath.row] stringValue];
+	}
 	
 	// selectedIndexPath can be nil so we need to test for that condition
 	
-    NSIndexPath * selectedIndexPath = (easyTableView == self.verticalView) ? _selectedVerticalIndexPath : _selectedHorizontalIndexPath;
+    NSIndexPath * selectedIndexPath = (easyTableView == self.verticalView) ? selectedVerticalIndexPath : selectedHorizontalIndexPath;
 	BOOL isSelected = selectedIndexPath ? ([selectedIndexPath compare:indexPath] == NSOrderedSame) : NO;
 	[self borderIsSelected:isSelected forView:label];
     
@@ -143,14 +170,14 @@
     return cell.contentView.subviews[0];
 }
 
-- (void)easyTableView:(EasyTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSIndexPath *__strong* selectedIndexPath = (tableView == self.verticalView) ? &_selectedVerticalIndexPath : &_selectedHorizontalIndexPath;
+- (void)easyTableView:(EasyTableView *)easyTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *__strong *selectedIndexPath = (easyTableView == self.verticalView) ? &selectedVerticalIndexPath : &selectedHorizontalIndexPath;
     
     if (selectedIndexPath)
-		[self borderIsSelected:NO forView:[self viewForIndexPath:*selectedIndexPath easyTableView:tableView]];
+		[self borderIsSelected:NO forView:[self viewForIndexPath:*selectedIndexPath easyTableView:easyTableView]];
     
     *selectedIndexPath = indexPath;
-    UILabel * label	= (UILabel *)[self viewForIndexPath:*selectedIndexPath easyTableView:tableView];
+    UILabel * label	= (UILabel *)[self viewForIndexPath:*selectedIndexPath easyTableView:easyTableView];
     [self borderIsSelected:YES forView:label];
 	
 	self.bigLabel.text	= label.text;
@@ -158,7 +185,27 @@
 
 // Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
 - (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
-	return NUM_OF_CELLS;
+	if (easyTableView == self.horizontalView) {
+		return horizontalDataStore.count;
+	}
+	else {
+		return verticalDataStore.count;
+	}
+}
+
+#pragma mark - Deletion methods
+
+- (BOOL)easyTableViewAllowsCellDeletion:(EasyTableView *)easyTableView {
+	return YES;
+}
+
+- (void)easyTableView:(EasyTableView *)easyTableView didDeleteCellAtIndexPath:(NSIndexPath *)indexPath {
+	if (easyTableView == self.horizontalView) {
+		[horizontalDataStore removeObjectAtIndex:indexPath.row];
+	}
+	else {
+		[verticalDataStore removeObjectAtIndex:indexPath.row];
+	}
 }
 
 #pragma mark - Optional EasyTableView delegate methods for section headers and footers
