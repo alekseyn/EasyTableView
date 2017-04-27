@@ -268,9 +268,7 @@
 		case UIGestureRecognizerStateChanged: {
 			gesture.view.center = CGPointMake(centerLocation.x + translation.x, centerLocation.y + translation.y);
 			
-			gesture.view.layer.borderColor = (doesIntersect) ? nil : [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5].CGColor;
-			gesture.view.layer.borderWidth = (doesIntersect) ? 0.0 : 8.0;
-			
+			[self setView:gesture.view asSelected:doesIntersect];
 			break;
 		}
 			
@@ -294,6 +292,7 @@
 					if (self.orientation == EasyTableViewOrientationHorizontal) {
 						gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, M_PI/2);
 					}
+					[self setView:gesture.view asSelected:NO];
 					
 					// Reinsert into orginal layer of view hierarchy
 					[cellSuperview addSubview:gesture.view];
@@ -317,9 +316,8 @@
 					
 				} completion:^(BOOL finished) {
 					// Restore the cell for reuse
-					gesture.view.transform			= CGAffineTransformIdentity;
-					gesture.view.layer.borderColor	= nil;
-					gesture.view.layer.borderWidth	= 0.0;
+					gesture.view.transform = CGAffineTransformIdentity;
+					[self setView:gesture.view asSelected:NO];
 					
 					// Delete the cell only after animation has completed.
 					// Otherwise cell could disappear prematurely.
@@ -334,6 +332,17 @@
 			
 		default:
 			break;
+	}
+}
+
+- (void)setView:(UIView *)view asSelected:(BOOL)selected {
+	if (selected) {
+		view.layer.borderColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5].CGColor;
+		view.layer.borderWidth = 8.0;
+	}
+	else {
+		view.layer.borderColor = nil;
+		view.layer.borderWidth = 0.0;
 	}
 }
 

@@ -89,7 +89,7 @@
 	self.verticalView.tableView.backgroundColor	= [UIColor clearColor];
 	self.verticalView.tableView.allowsSelection	= YES;
 	self.verticalView.tableView.separatorColor	= [[UIColor blackColor] colorWithAlphaComponent:0.1];
-	self.verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.verticalView.autoresizingMask			= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
 	
 	[self.view addSubview:self.verticalView];
 }
