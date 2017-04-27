@@ -26,6 +26,17 @@
  
  A horizontal EasyTableView will correctly auto-resize it's overall length only.
  A horizontal EasyTableView will NOT necessarily correctly auto-resize it's height.
+ 
+ NEW FEATURES:
+ 
+ 4/25/2017 - Swiping a table view cell in a perpendicular direction to the normal
+ scrolling direction of an EasyTableView, drags the cell out of the EasyTableView.
+ If touches end with the cell away from the EasyTableView it will be deleted.
+ Otherwise it will animate back to it's normal position. This feature is invoked by
+ returning YES to the easyTableViewAllowsCellDeletion: delegate method. If this 
+ feature is used, the easyTableView:didDeleteCellAtIndexPath: delegate method must
+ be implemented and must update the table view data store accordingly.
+ 
  */
 
 #import <UIKit/UIKit.h>
@@ -46,6 +57,8 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation) {
 - (UIView *)easyTableView:(EasyTableView*)easyTableView viewForHeaderInSection:(NSInteger)section;
 - (UIView *)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
 - (CGFloat)easyTableView:(EasyTableView *)easyTableView heightOrWidthForCellAtIndexPath:(NSIndexPath *)indexPath;
+
+// Implement both of these methods for the cell deletion feature
 - (BOOL)easyTableViewAllowsCellDeletion:(EasyTableView *)easyTableView;
 - (void)easyTableView:(EasyTableView *)easyTableView didDeleteCellAtIndexPath:(NSIndexPath *)indexPath;
 @end
