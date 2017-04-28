@@ -22,6 +22,7 @@
 	#define NUM_OF_SECTIONS			2
 #else
 	#define NUM_OF_CELLS			21
+	#define NUM_OF_SECTIONS			1
 #endif
 
 @implementation EasyTableViewController {
@@ -47,6 +48,7 @@
 	verticalDataStore = [[NSMutableArray alloc] initWithCapacity:NUM_OF_CELLS];
 	
 	for (int i = 0; i < NUM_OF_CELLS; i++) {
+		// Sample data is just a sequence of NSNumber objects
 		[verticalDataStore addObject:@(i)];
 	}
 }
@@ -55,6 +57,7 @@
 	horizontalDataStore = [[NSMutableArray alloc] initWithCapacity:NUM_OF_CELLS];
 
 	for (int i = 0; i < NUM_OF_CELLS; i++) {
+		// Sample data is just a sequence of NSNumber objects
 		[horizontalDataStore addObject:@(i)];
 	}
 }
@@ -114,9 +117,24 @@
 	}
 }
 
+- (UIView *)viewForIndexPath:(NSIndexPath *)indexPath easyTableView:(EasyTableView *)tableView {
+	UITableViewCell * cell	= [tableView.tableView cellForRowAtIndexPath:indexPath];
+	return cell.contentView.subviews[0];
+}
+
 #pragma mark - EasyTableViewDelegate
 
-// These delegate methods support both example views - first delegate method creates the necessary views
+// Required delegate method
+- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
+	if (easyTableView == self.horizontalView) {
+		return horizontalDataStore.count;
+	}
+	else {
+		return verticalDataStore.count;
+	}
+}
+
+// This required delegate method supports both example views
 - (UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"EasyTableViewCell";
 	
@@ -175,11 +193,6 @@
 
 // Optional delegate to track the selection of a particular cell
 
-- (UIView *)viewForIndexPath:(NSIndexPath *)indexPath easyTableView:(EasyTableView *)tableView {
-    UITableViewCell * cell	= [tableView.tableView cellForRowAtIndexPath:indexPath];
-    return cell.contentView.subviews[0];
-}
-
 - (void)easyTableView:(EasyTableView *)easyTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *__strong *selectedIndexPath = (easyTableView == self.verticalView) ? &selectedVerticalIndexPath : &selectedHorizontalIndexPath;
     
@@ -193,20 +206,12 @@
 	self.bigLabel.text	= label.text;
 }
 
-// Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
-- (NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section {
-	if (easyTableView == self.horizontalView) {
-		return horizontalDataStore.count;
-	}
-	else {
-		return verticalDataStore.count;
-	}
-}
-
 #pragma mark - Deletion methods
 
 - (BOOL)easyTableViewAllowsCellDeletion:(EasyTableView *)easyTableView {
-	return YES;
+	// The only reason cell deletion is not used in this example with multiple sections,
+	// is because the data store is not set up to support multiple sections.
+	return (NUM_OF_SECTIONS == 1);
 }
 
 - (void)easyTableView:(EasyTableView *)easyTableView didDeleteCellAtIndexPath:(NSIndexPath *)indexPath {

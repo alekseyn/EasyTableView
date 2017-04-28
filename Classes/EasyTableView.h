@@ -35,7 +35,7 @@
  Otherwise it will animate back to it's normal position. This feature is invoked by
  returning YES to the easyTableViewAllowsCellDeletion: delegate method. If this
  feature is used, the easyTableView:didDeleteCellAtIndexPath: delegate method must
- be implemented and must update the table view data store accordingly.
+ be implemented and must update the data store backing the table view accordingly.
  
  */
 
@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, EasyTableViewOrientation) {
 - (UIView *)easyTableView:(EasyTableView*)easyTableView viewForFooterInSection:(NSInteger)section;
 - (CGFloat)easyTableView:(EasyTableView *)easyTableView heightOrWidthForCellAtIndexPath:(NSIndexPath *)indexPath;
 
-// Implement the first two of these methods for the cell deletion feature
+// Implement at least the first two of these methods for the cell deletion feature
 - (BOOL)easyTableViewAllowsCellDeletion:(EasyTableView *)easyTableView;
 - (void)easyTableView:(EasyTableView *)easyTableView didDeleteCellAtIndexPath:(NSIndexPath *)indexPath;
 - (void)easyTableViewHasPendingCellDeletion:(EasyTableView *)easyTableView;

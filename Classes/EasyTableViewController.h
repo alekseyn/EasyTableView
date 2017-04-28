@@ -4,6 +4,7 @@
 //
 //  Created by Aleksey Novicov on 5/30/10.
 //
+// Sample code that demonstrates how to use EasyTableView
 
 #import <UIKit/UIKit.h>
 #import "EasyTableView.h"
