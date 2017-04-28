@@ -103,6 +103,16 @@
 	borderView.image			= [UIImage imageNamed:borderImageName];
 }
 
+- (void)indicateView:(UIView *)view pendingDeletion:(BOOL)pendingDeletion {
+	if (pendingDeletion) {
+		view.layer.borderColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5].CGColor;
+		view.layer.borderWidth = 8.0;
+	}
+	else {
+		view.layer.borderColor = nil;
+		view.layer.borderWidth = 0.0;
+	}
+}
 
 #pragma mark - EasyTableViewDelegate
 
@@ -206,6 +216,10 @@
 	else {
 		[verticalDataStore removeObjectAtIndex:indexPath.row];
 	}
+}
+
+- (void)easyTableView:(EasyTableView *)easyTableView cell:(UITableViewCell *)cell deletionIsEminent:(BOOL)eminent {
+	[self indicateView:cell pendingDeletion:eminent];
 }
 
 #pragma mark - Optional EasyTableView delegate methods for section headers and footers

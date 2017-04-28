@@ -19,62 +19,62 @@
 #pragma mark - Initialization
 
 - (id)initWithFrame:(CGRect)frame ofWidth:(CGFloat)width {
-    if (self = [super initWithFrame:frame]) {
+	if (self = [super initWithFrame:frame]) {
 		self.orientation			= EasyTableViewOrientationHorizontal;
-        self.tableView				= [UITableView new];
-        self.tableView.rowHeight	= width;
+		self.tableView				= [UITableView new];
+		self.tableView.rowHeight	= width;
 	}
-    return self;
+	return self;
 }
 
 
 - (id)initWithFrame:(CGRect)frame ofHeight:(CGFloat)height {
-    if (self = [super initWithFrame:frame]) {
+	if (self = [super initWithFrame:frame]) {
 		self.orientation			= EasyTableViewOrientationVertical;
-        self.tableView				= [UITableView new];
-        self.tableView.rowHeight	= height;
-    }
-    return self;
+		self.tableView				= [UITableView new];
+		self.tableView.rowHeight	= height;
+	}
+	return self;
 }
 
 #pragma mark - Properties
 
 - (void)setTableView:(UITableView *)tableView {
-    _tableView = tableView;
-    
-    self.orientation = _orientation;
-    
-    _tableView.delegate			= self;
-    _tableView.dataSource		= self;
-    _tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	_tableView = tableView;
 	
-    [self addSubview:_tableView];
+	self.orientation = _orientation;
+	
+	_tableView.delegate			= self;
+	_tableView.dataSource		= self;
+	_tableView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	
+	[self addSubview:_tableView];
 }
 
 - (void)setFrame:(CGRect)frame {
-    super.frame = frame;
-    
-    self.orientation = _orientation;
+	super.frame = frame;
+	
+	self.orientation = _orientation;
 }
 
 - (void)setOrientation:(EasyTableViewOrientation)orientation {
-    _orientation = orientation;
-    
-    if (!self.tableView)
-        return;
-    
-    self.tableView.transform	= CGAffineTransformIdentity;
-    self.tableView.frame		= CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-    
-    if (_orientation == EasyTableViewOrientationHorizontal) {
-        int xOrigin	= (self.bounds.size.width - self.bounds.size.height) / 2.0;
-        int yOrigin	= (self.bounds.size.height - self.bounds.size.width) / 2.0;
+	_orientation = orientation;
+	
+	if (!self.tableView)
+		return;
+	
+	self.tableView.transform	= CGAffineTransformIdentity;
+	self.tableView.frame		= CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+	
+	if (_orientation == EasyTableViewOrientationHorizontal) {
+		int xOrigin	= (self.bounds.size.width - self.bounds.size.height) / 2.0;
+		int yOrigin	= (self.bounds.size.height - self.bounds.size.width) / 2.0;
 		
-        self.tableView.frame		= CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
-        self.tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
+		self.tableView.frame		= CGRectMake(xOrigin, yOrigin, self.bounds.size.height, self.bounds.size.width);
+		self.tableView.transform	= CGAffineTransformMakeRotation(-M_PI/2);
 		
-        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, self.bounds.size.height - 7.0);
-    }
+		self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, self.bounds.size.height - 7.0);
+	}
 }
 
 - (CGPoint)contentOffset {
@@ -105,10 +105,10 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([self.delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
-        return [self.delegate numberOfSectionsInEasyTableView:self];
-    }
-    return 1;
+	if ([self.delegate respondsToSelector:@selector(numberOfSectionsInEasyTableView:)]) {
+		return [self.delegate numberOfSectionsInEasyTableView:self];
+	}
+	return 1;
 }
 
 - (void)reload {
@@ -118,27 +118,27 @@
 #pragma mark - Footers and Headers
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
-        UIView *headerView = [self.delegate easyTableView:self viewForHeaderInSection:section];
+	if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
+		UIView *headerView = [self.delegate easyTableView:self viewForHeaderInSection:section];
 		
 		if (self.orientation == EasyTableViewOrientationHorizontal)
 			return headerView.frame.size.width;
-		else 
+		else
 			return headerView.frame.size.height;
-    }
-    return 0.0;
+	}
+	return 0.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if ([self.delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
-        UIView *footerView = [self.delegate easyTableView:self viewForFooterInSection:section];
+	if ([self.delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
+		UIView *footerView = [self.delegate easyTableView:self viewForFooterInSection:section];
 		
 		if (self.orientation == EasyTableViewOrientationHorizontal)
 			return footerView.frame.size.width;
-		else 
+		else
 			return footerView.frame.size.height;
-    }
-    return 0.0;
+	}
+	return 0.0;
 }
 
 - (UIView *)viewToHoldSectionView:(UIView *)sectionView {
@@ -161,36 +161,59 @@
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
+	if ([self.delegate respondsToSelector:@selector(easyTableView:viewForHeaderInSection:)]) {
 		UIView *sectionView = [self.delegate easyTableView:self viewForHeaderInSection:section];
 		
 		return [self viewToHoldSectionView:sectionView];
-    }
-    return nil;
+	}
+	return nil;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if ([self.delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
+	if ([self.delegate respondsToSelector:@selector(easyTableView:viewForFooterInSection:)]) {
 		UIView *sectionView = [self.delegate easyTableView:self viewForFooterInSection:section];
 		
 		return [self viewToHoldSectionView:sectionView];
-    }
-    return nil;
+	}
+	return nil;
+}
+
+#pragma mark - ScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	if ([self.delegate respondsToSelector:@selector(easyTableViewWillBeginDragging:)])
+		[self.delegate easyTableViewWillBeginDragging:self];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	if ([self.delegate respondsToSelector:@selector(easyTableViewDidEndDragging:willDecelerate:)])
+		[self.delegate easyTableViewDidEndDragging:self willDecelerate:decelerate];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+	if ([self.delegate respondsToSelector:@selector(easyTableViewWillBeginDecelerating:)])
+		[self.delegate easyTableViewWillBeginDecelerating:self];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+	if ([self.delegate respondsToSelector:@selector(easyTableViewDidEndDecelerating:)])
+		[self.delegate easyTableViewDidEndDecelerating:self];
 }
 
 #pragma mark - TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if ([self.delegate respondsToSelector:@selector(easyTableView:didSelectRowAtIndexPath:)]) {
-        [self.delegate easyTableView:self didSelectRowAtIndexPath:indexPath];
-    }
+		[self.delegate easyTableView:self didSelectRowAtIndexPath:indexPath];
+	}
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.delegate respondsToSelector:@selector(easyTableView:heightOrWidthForCellAtIndexPath:)]) {
-        return [self.delegate easyTableView:self heightOrWidthForCellAtIndexPath:indexPath];
-    }
-    return tableView.rowHeight;
+	if ([self.delegate respondsToSelector:@selector(easyTableView:heightOrWidthForCellAtIndexPath:)]) {
+		return [self.delegate easyTableView:self heightOrWidthForCellAtIndexPath:indexPath];
+	}
+	return tableView.rowHeight;
 }
 
 #pragma mark - TableViewDataSource
@@ -200,7 +223,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell * cell = [self.delegate easyTableView:self cellForRowAtIndexPath:indexPath];
+	UITableViewCell * cell = [self.delegate easyTableView:self cellForRowAtIndexPath:indexPath];
 	
 	// Cell deletion must be enabled by the EasyTableView owner
 	BOOL allowCellDeletion = NO;
@@ -216,16 +239,16 @@
 		[cell addGestureRecognizer:panGesture];
 	}
 	
-    // Rotate if needed
-    if ((self.orientation == EasyTableViewOrientationHorizontal) &&
-        CGAffineTransformEqualToTransform(cell.contentView.transform, CGAffineTransformIdentity)) {
-        int xOrigin	= (cell.bounds.size.width - cell.bounds.size.height) / 2.0;
-        int yOrigin	= (cell.bounds.size.height - cell.bounds.size.width) / 2.0;
+	// Rotate if needed
+	if ((self.orientation == EasyTableViewOrientationHorizontal) &&
+		CGAffineTransformEqualToTransform(cell.contentView.transform, CGAffineTransformIdentity)) {
+		int xOrigin	= (cell.bounds.size.width - cell.bounds.size.height) / 2.0;
+		int yOrigin	= (cell.bounds.size.height - cell.bounds.size.width) / 2.0;
 		
-        cell.contentView.frame		= CGRectMake(xOrigin, yOrigin, cell.bounds.size.height, cell.bounds.size.width);
-        cell.contentView.transform	= CGAffineTransformMakeRotation(M_PI/2.0);
-    }
-    return cell;
+		cell.contentView.frame		= CGRectMake(xOrigin, yOrigin, cell.bounds.size.height, cell.bounds.size.width);
+		cell.contentView.transform	= CGAffineTransformMakeRotation(M_PI/2.0);
+	}
+	return cell;
 }
 
 #pragma mark - Pan gesture recognizer (for cell deletion)
@@ -246,7 +269,12 @@
 	
 	CGRect oversizedRect = CGRectInset(gesture.view.frame, -DELETE_THRESHOLD, -DELETE_THRESHOLD);
 	BOOL doesIntersect = CGRectIntersectsRect(oversizedRect, self.frame);
-
+	
+	// Notify delegate that cell deletion is in process. It's helpful
+	// to know what's going on in cases where an EasyTableView may be
+	// hidden from sight if there is no user activity.
+	[self informDelegateOfPendingCellDeletion];
+	
 	switch (gesture.state) {
 		case UIGestureRecognizerStateBegan: {
 			
@@ -268,7 +296,8 @@
 		case UIGestureRecognizerStateChanged: {
 			gesture.view.center = CGPointMake(centerLocation.x + translation.x, centerLocation.y + translation.y);
 			
-			[self setView:gesture.view asSelected:doesIntersect];
+			// Provide an opportunity for any UI updates
+			[self informDelegateCell:(UITableViewCell *)gesture.view deletionIsEminent:!doesIntersect];
 			break;
 		}
 			
@@ -292,7 +321,8 @@
 					if (self.orientation == EasyTableViewOrientationHorizontal) {
 						gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, M_PI/2);
 					}
-					[self setView:gesture.view asSelected:NO];
+					// Provide an opportunity for any UI updates
+					[self informDelegateCell:(UITableViewCell *)gesture.view deletionIsEminent:NO];
 					
 					// Reinsert into orginal layer of view hierarchy
 					[cellSuperview addSubview:gesture.view];
@@ -317,7 +347,9 @@
 				} completion:^(BOOL finished) {
 					// Restore the cell for reuse
 					gesture.view.transform = CGAffineTransformIdentity;
-					[self setView:gesture.view asSelected:NO];
+					
+					// Provide an opportunity for any UI updates
+					[self informDelegateCell:(UITableViewCell *)gesture.view deletionIsEminent:NO];
 					
 					// Delete the cell only after animation has completed.
 					// Otherwise cell could disappear prematurely.
@@ -335,14 +367,15 @@
 	}
 }
 
-- (void)setView:(UIView *)view asSelected:(BOOL)selected {
-	if (selected) {
-		view.layer.borderColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5].CGColor;
-		view.layer.borderWidth = 8.0;
+- (void)informDelegateOfPendingCellDeletion {
+	if ([self.delegate respondsToSelector:@selector(easyTableViewHasPendingCellDeletion:)]) {
+		[self.delegate easyTableViewHasPendingCellDeletion:self];
 	}
-	else {
-		view.layer.borderColor = nil;
-		view.layer.borderWidth = 0.0;
+}
+
+- (void)informDelegateCell:(UITableViewCell *)cell deletionIsEminent:(BOOL)eminent {
+	if ([self.delegate respondsToSelector:@selector(easyTableView:cell:deletionIsEminent:)]) {
+		[self.delegate easyTableView:self cell:cell deletionIsEminent:eminent];
 	}
 }
 
