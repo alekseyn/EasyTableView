@@ -312,7 +312,12 @@
 			if (doesIntersect) {
 				// Return to original position
 				
-				[UIView animateWithDuration:0.25 animations:^{
+				[UIView animateWithDuration: 0.3
+									  delay: 0.0
+					 usingSpringWithDamping: 0.5
+					  initialSpringVelocity: 0.5
+									options: UIViewAnimationOptionCurveEaseInOut
+								 animations: ^{
 					gesture.view.center = centerLocation;
 					
 				} completion:^(BOOL finished) {
