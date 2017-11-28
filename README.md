@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Falekseyn%2FEasyTableView.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Falekseyn%2FEasyTableView?ref=badge_shield)
+
 EasyTableView 2.1 - May 1, 2017
 
 The API for `EasyTableView` has been extended. Swiping a table view cell in a perpendicular direction to the normal scrolling direction of an `EasyTableView`, drags the cell out of the `EasyTableView`. If touches end with the cell away from the `EasyTableView` it will be deleted. Otherwise it will animate back to it's normal position. See `EasyTableViewController` for an example.
@@ -85,3 +87,6 @@ That's all there is to it. It is very easy to use. And yes, that is a picture of
 
 Copyright (c) 2010-2017, Yodel Code LLC
 All rights reserved.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Falekseyn%2FEasyTableView.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Falekseyn%2FEasyTableView?ref=badge_large)
