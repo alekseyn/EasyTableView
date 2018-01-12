@@ -1,5 +1,5 @@
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Falekseyn%2FEasyTableView.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Falekseyn%2FEasyTableView?ref=badge_shield)
-[![Language](https://img.shields.io/badge/language-Objective%20C-orange.svg)
+![Language](https://img.shields.io/badge/language-Objective%20C-orange.svg)
 [![CocoaPods](https://img.shields.io/badge/Cocoa%20Pods-✓-4BC51D.svg?style=flat)](https://cocoapods.org/pods/EasyTableView)
 [![CocoaPodsDL](https://img.shields.io/cocoapods/dt/EasyTableView.svg)](https://cocoapods.org/pods/EasyTableView)
 
